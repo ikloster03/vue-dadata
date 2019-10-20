@@ -26,6 +26,7 @@ import {
   DadataSuggestion,
 } from '@/types/DadataAddress';
 import axios from 'axios';
+import { getSuggestion } from '@/api/api';
 
 @Component({
   name: 'VueDadata',
@@ -90,17 +91,7 @@ export default class VueDadata extends Vue {
   private async fetchSuggestions() {
     // console.log('fetchSuggestions');
     // TODO
-    const data = await axios.post(
-      'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
-      { query: this.inputQuery },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': `Token ${this.token}`,
-        },
-      },
-    );
+    const data = await getSuggestion(this.token, this.inputQuery);
     // console.log('data', data);
   }
 }
