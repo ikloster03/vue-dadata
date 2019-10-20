@@ -20,12 +20,10 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import {
-  BoundsType,
-  DadataAddress,
-  DadataSuggestion,
-} from '@/types/DadataAddress';
+import DadataAddress, { BoundsType } from '@/types/DadataAddress';
+import DadataSuggestion from '@/types/DadataSuggestion';
 import axios from 'axios';
+import getSuggestions from '@/api/getSuggestions';
 
 @Component({
   name: 'VueDadata',
@@ -87,21 +85,13 @@ export default class VueDadata extends Vue {
     // TODO
   }
 
-  private async fetchSuggestions() {
-    // console.log('fetchSuggestions');
-    // TODO
-    const data = await axios.post(
-      'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
-      { query: this.inputQuery },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': `Token ${this.token}`,
-        },
-      },
-    );
-    // console.log('data', data);
+  private async fetchSuggestions(): Promise<DadataSuggestion[]> {
+    const suggestions = await getSuggestions({
+      token: this.token,
+      query: this.inputQuery,
+    });
+
+    return suggestions;
   }
 }
 </script>
