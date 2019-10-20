@@ -80,10 +80,4 @@ export interface DadataAddress {
   unparsed_parts: null;
 }
 
-export interface DadataSuggestion {
-  value: string;
-  unrestricted_value: string;
-  data: DadataAddress;
-}
-
 export default DadataAddress;
