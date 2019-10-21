@@ -9,12 +9,20 @@
         v-model="inputQuery"
         :autoComplete="autocomplete"
         @change="onInputChange"
+        @input="onInputChange"
         @keydown="onKeyPress"
         @focus="onInputFocus"
         @blur="onInputBlur"
       />
     </div>
-    <div class="vue-dadata__suggestions"></div>
+    <div id="suggestions" class="vue-dadata__suggestions" v-show="suggestionsVisible">
+      <span
+        class="vue-dadata__suggestions-item"
+        v-for="(suggestion, index) in suggestions"
+        :key="`suggestion_${index}`"
+        @click="onSuggestionClick(suggestion.value)"
+      >{{ suggestion.value}}</span>
+    </div>
   </div>
 </template>
 
@@ -48,8 +56,10 @@ export default class VueDadata extends Vue {
   public inputFocused: boolean = false;
   public suggestions: DadataSuggestion[] = [];
   public suggestionIndex: number = -1;
-  public suggestionsVisible: boolean = true;
+  public suggestionsVisible: boolean = false;
   public isValid: boolean = false;
+  public pointer: number = 0;
+  public buffersuggestionsVisible = false;
 
   public created() {
     // console.log('created');
@@ -59,29 +69,85 @@ export default class VueDadata extends Vue {
   public onInputFocus() {
     // console.log('onInputFocus');
     // TODO
+    this.suggestionsVisible = true;
   }
 
-  public onInputBlur() {
-    // console.log('onInputBlur');
+  public onInputBlur(event) {
+    // console.log(event);
+    // this.suggestionsVisible = false
     // TODO
   }
 
-  public onInputChange() {
-    // console.log('onInputChange');
+  public async onInputChange() {
+    if (this.buffersuggestionsVisible) {
+      this.buffersuggestionsVisible = false;
+      return 0;
+    }
+
+    this.suggestionsVisible = true;
+    this.suggestions = await this.fetchSuggestions();
     // TODO
   }
 
-  public onKeyPress(event: KeyboardEvent) {
-    // console.log('onKeyPress');
-    // TODO
+  public async onKeyPress(event: KeyboardEvent) {
+    const block = document.getElementById('suggestions');
+
     if (event.which === 13) {
-      // enter
-      this.fetchSuggestions();
+
+      if (this.pointer === 0 && block.children.length > 0) {
+        this.inputQuery = block.children[0].innerHTML;
+      } else if (this.pointer > 0) {
+        this.inputQuery = block.children[this.pointer - 1].innerHTML;
+      }
+
+      this.suggestionsVisible = false;
+      this.buffersuggestionsVisible = true;
+    }
+    // Button UP
+    if (event.which === 38) {
+      if (this.pointer === 0) {
+        block.children[this.pointer].style.backgroundColor = '#fff';
+      } else {
+        block.children[this.pointer - 1].style.backgroundColor = '#fff';
+      }
+
+      if (0 < this.pointer) {
+        this.pointer--;
+      }
+
+      if (0 < this.pointer) {
+        block.children[this.pointer - 1].style.backgroundColor = '#f1c40f';
+      }
+
+    }
+
+    // Button DOWN
+    if (event.which === 40) {
+
+      if (this.pointer === 0) {
+        block.children[this.pointer].style.backgroundColor = '#fff';
+      } else {
+        block.children[this.pointer - 1].style.backgroundColor = '#fff';
+      }
+
+      if (block.children.length > this.pointer) {
+        this.pointer++;
+      }
+
+      block.children[this.pointer - 1].style.backgroundColor = '#f1c40f';
     }
   }
 
-  public onSuggestionClick() {
-    // console.log('onSuggestionClick');
+  public async onSuggestionClick(value: string) {
+    this.inputQuery = value;
+    const suggestions = await this.fetchSuggestions();
+
+    if (this.inputQuery === suggestions[0].value && suggestions.length === 1) {
+      this.suggestionsVisible = false;
+    } else if (this.inputQuery === suggestions[0].value) {
+      suggestions.shift();
+      this.suggestions = suggestions;
+    }
     // TODO
   }
 
@@ -98,5 +164,28 @@ export default class VueDadata extends Vue {
 
 <style lang="scss">
 .vue-dadata {
+  .vue-dadata__container {
+    width: 100%;
+  }
+
+  &__input {
+    font-size: 14px;
+    width: 100%;
+    height: 47px;
+    outline: none;
+  }
+
+  &__suggestions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    &-item {
+      padding: 10px;
+      cursor: pointer;
+      &:hover {
+        background-color: #f1c40f;
+      }
+    }
+  }
 }
 </style>
