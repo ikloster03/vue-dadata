@@ -7,6 +7,7 @@
         :disabled="disabled"
         :placeholder="placeholder"
         v-model="inputQuery"
+        ref="inputText"
         :autoComplete="autocomplete"
         @change="onInputChange"
         @input="onInputChange"
@@ -15,12 +16,13 @@
         @blur="onInputBlur"
       />
     </div>
-    <div id="suggestions" class="vue-dadata__suggestions" v-show="suggestionsVisible">
+    <div id="suggestions" class="vue-dadata__suggestions" v-if="suggestionsVisible">
       <span
-        class="vue-dadata__suggestions-item"
         v-for="(suggestion, index) in suggestions"
         :key="`suggestion_${index}`"
-        @click="onSuggestionClick(suggestion.value)"
+        @click="onSuggestionClick(index)"
+        class="vue-dadata__suggestions-item"
+        :class="{'vue-dadata__suggestions-item_current': index === suggestionIndex}"
       >{{ suggestion.value}}</span>
     </div>
   </div>
@@ -48,7 +50,7 @@ export default class VueDadata extends Vue {
   @Prop(String) public readonly toBound?: BoundsType;
   @Prop(String) public readonly address?: DadataSuggestion;
   @Prop(Function) public readonly onChange?: (
-    suggestion: DadataSuggestion[],
+    suggestion: DadataSuggestion,
   ) => void;
   @Prop(Function) public readonly validate?: (value: string) => void;
 
@@ -56,10 +58,9 @@ export default class VueDadata extends Vue {
   public inputFocused: boolean = false;
   public suggestions: DadataSuggestion[] = [];
   public suggestionIndex: number = -1;
-  public suggestionsVisible: boolean = false;
+  public suggestionsVisible: boolean = true;
   public isValid: boolean = false;
-  public pointer: number = 0;
-  public buffersuggestionsVisible = false;
+  protected textInput?: HTMLInputElement;
 
   public created() {
     // console.log('created');
@@ -69,86 +70,67 @@ export default class VueDadata extends Vue {
   public onInputFocus() {
     // console.log('onInputFocus');
     // TODO
-    this.suggestionsVisible = true;
+    // this.suggestionsVisible = true;
   }
 
-  public onInputBlur(event) {
+  public onInputBlur() {
+    // console.log('onInputBlur');
     // console.log(event);
     // this.suggestionsVisible = false
     // TODO
   }
 
   public async onInputChange() {
-    if (this.buffersuggestionsVisible) {
-      this.buffersuggestionsVisible = false;
-      return 0;
-    }
-
+    // console.log('onInputChange');
     this.suggestionsVisible = true;
     this.suggestions = await this.fetchSuggestions();
-    // TODO
+  }
+
+  public async selectSuggestion(index: number) {
+    // console.log('selectSuggestion');
+    if (this.suggestions.length >= index - 1) {
+      this.inputQuery = this.suggestions[index].value;
+      this.suggestionsVisible = false;
+      await this.$nextTick();
+      await this.fetchSuggestions();
+
+      if (this.onChange) {
+        this.onChange(this.suggestions[index]);
+      }
+    }
   }
 
   public async onKeyPress(event: KeyboardEvent) {
-    const block = document.getElementById('suggestions');
+    // console.log('onKeyPress', event.which);
+    const ARROW_DOWN = 40;
+    const ARROW_UP = 38;
+    const ENTER = 13;
 
-    if (event.which === 13) {
-
-      if (this.pointer === 0 && block.children.length > 0) {
-        this.inputQuery = block.children[0].innerHTML;
-      } else if (this.pointer > 0) {
-        this.inputQuery = block.children[this.pointer - 1].innerHTML;
+    if (event.which === ARROW_DOWN && this.suggestionsVisible) {
+      event.preventDefault();
+      if (this.suggestionIndex < this.suggestions.length) {
+        this.suggestionIndex = this.suggestionIndex + 1;
+        this.inputQuery = this.suggestions[this.suggestionIndex].value;
       }
-
-      this.suggestionsVisible = false;
-      this.buffersuggestionsVisible = true;
-    }
-    // Button UP
-    if (event.which === 38) {
-      if (this.pointer === 0) {
-        block.children[this.pointer].style.backgroundColor = '#fff';
-      } else {
-        block.children[this.pointer - 1].style.backgroundColor = '#fff';
+    } else if (event.which === ARROW_UP && this.suggestionsVisible) {
+      event.preventDefault();
+      if (this.suggestionIndex >= 0) {
+        this.suggestionIndex = this.suggestionIndex - 1;
+        this.inputQuery =
+          this.suggestionIndex === -1
+            ? this.inputQuery
+            : this.suggestions[this.suggestionIndex].value;
       }
-
-      if (0 < this.pointer) {
-        this.pointer--;
+    } else if (event.which === ENTER) {
+      event.preventDefault();
+      if (this.suggestionIndex >= 0) {
+        this.selectSuggestion(this.suggestionIndex);
       }
-
-      if (0 < this.pointer) {
-        block.children[this.pointer - 1].style.backgroundColor = '#f1c40f';
-      }
-
-    }
-
-    // Button DOWN
-    if (event.which === 40) {
-
-      if (this.pointer === 0) {
-        block.children[this.pointer].style.backgroundColor = '#fff';
-      } else {
-        block.children[this.pointer - 1].style.backgroundColor = '#fff';
-      }
-
-      if (block.children.length > this.pointer) {
-        this.pointer++;
-      }
-
-      block.children[this.pointer - 1].style.backgroundColor = '#f1c40f';
     }
   }
 
-  public async onSuggestionClick(value: string) {
-    this.inputQuery = value;
-    const suggestions = await this.fetchSuggestions();
-
-    if (this.inputQuery === suggestions[0].value && suggestions.length === 1) {
-      this.suggestionsVisible = false;
-    } else if (this.inputQuery === suggestions[0].value) {
-      suggestions.shift();
-      this.suggestions = suggestions;
-    }
-    // TODO
+  public async onSuggestionClick(index: number) {
+    this.selectSuggestion(index);
   }
 
   private async fetchSuggestions(): Promise<DadataSuggestion[]> {
@@ -183,6 +165,9 @@ export default class VueDadata extends Vue {
       padding: 10px;
       cursor: pointer;
       &:hover {
+        background-color: #f1c40f;
+      }
+      &_current {
         background-color: #f1c40f;
       }
     }
