@@ -7,14 +7,24 @@
         :disabled="disabled"
         :placeholder="placeholder"
         v-model="inputQuery"
+        ref="inputText"
         :autoComplete="autocomplete"
         @change="onInputChange"
+        @input="onInputChange"
         @keydown="onKeyPress"
         @focus="onInputFocus"
         @blur="onInputBlur"
       />
     </div>
-    <div class="vue-dadata__suggestions"></div>
+    <div id="suggestions" class="vue-dadata__suggestions" v-if="suggestionsVisible">
+      <span
+        v-for="(suggestion, index) in suggestions"
+        :key="`suggestion_${index}`"
+        @click="onSuggestionClick(index)"
+        class="vue-dadata__suggestions-item"
+        :class="{'vue-dadata__suggestions-item_current': index === suggestionIndex}"
+      >{{ suggestion.value}}</span>
+    </div>
   </div>
 </template>
 
@@ -40,7 +50,7 @@ export default class VueDadata extends Vue {
   @Prop(String) public readonly toBound?: BoundsType;
   @Prop(String) public readonly address?: DadataSuggestion;
   @Prop(Function) public readonly onChange?: (
-    suggestion: DadataSuggestion[],
+    suggestion: DadataSuggestion,
   ) => void;
   @Prop(Function) public readonly validate?: (value: string) => void;
 
@@ -50,6 +60,7 @@ export default class VueDadata extends Vue {
   public suggestionIndex: number = -1;
   public suggestionsVisible: boolean = true;
   public isValid: boolean = false;
+  protected textInput?: HTMLInputElement;
 
   public created() {
     // console.log('created');
@@ -59,30 +70,67 @@ export default class VueDadata extends Vue {
   public onInputFocus() {
     // console.log('onInputFocus');
     // TODO
+    // this.suggestionsVisible = true;
   }
 
   public onInputBlur() {
     // console.log('onInputBlur');
+    // console.log(event);
+    // this.suggestionsVisible = false
     // TODO
   }
 
-  public onInputChange() {
+  public async onInputChange() {
     // console.log('onInputChange');
-    // TODO
+    this.suggestionsVisible = true;
+    this.suggestions = await this.fetchSuggestions();
   }
 
-  public onKeyPress(event: KeyboardEvent) {
-    // console.log('onKeyPress');
-    // TODO
-    if (event.which === 13) {
-      // enter
-      this.fetchSuggestions();
+  public async selectSuggestion(index: number) {
+    // console.log('selectSuggestion');
+    if (this.suggestions.length >= index - 1) {
+      this.inputQuery = this.suggestions[index].value;
+      this.suggestionsVisible = false;
+      await this.$nextTick();
+      await this.fetchSuggestions();
+
+      if (this.onChange) {
+        this.onChange(this.suggestions[index]);
+      }
     }
   }
 
-  public onSuggestionClick() {
-    // console.log('onSuggestionClick');
-    // TODO
+  public async onKeyPress(event: KeyboardEvent) {
+    // console.log('onKeyPress', event.which);
+    const ARROW_DOWN = 40;
+    const ARROW_UP = 38;
+    const ENTER = 13;
+
+    if (event.which === ARROW_DOWN && this.suggestionsVisible) {
+      event.preventDefault();
+      if (this.suggestionIndex < this.suggestions.length) {
+        this.suggestionIndex = this.suggestionIndex + 1;
+        this.inputQuery = this.suggestions[this.suggestionIndex].value;
+      }
+    } else if (event.which === ARROW_UP && this.suggestionsVisible) {
+      event.preventDefault();
+      if (this.suggestionIndex >= 0) {
+        this.suggestionIndex = this.suggestionIndex - 1;
+        this.inputQuery =
+          this.suggestionIndex === -1
+            ? this.inputQuery
+            : this.suggestions[this.suggestionIndex].value;
+      }
+    } else if (event.which === ENTER) {
+      event.preventDefault();
+      if (this.suggestionIndex >= 0) {
+        this.selectSuggestion(this.suggestionIndex);
+      }
+    }
+  }
+
+  public async onSuggestionClick(index: number) {
+    this.selectSuggestion(index);
   }
 
   private async fetchSuggestions(): Promise<DadataSuggestion[]> {
@@ -98,5 +146,31 @@ export default class VueDadata extends Vue {
 
 <style lang="scss">
 .vue-dadata {
+  .vue-dadata__container {
+    width: 100%;
+  }
+
+  &__input {
+    font-size: 14px;
+    width: 100%;
+    height: 47px;
+    outline: none;
+  }
+
+  &__suggestions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    &-item {
+      padding: 10px;
+      cursor: pointer;
+      &:hover {
+        background-color: #f1c40f;
+      }
+      &_current {
+        background-color: #f1c40f;
+      }
+    }
+  }
 }
 </style>
