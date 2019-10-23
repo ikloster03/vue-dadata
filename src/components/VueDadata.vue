@@ -108,7 +108,7 @@ export default class VueDadata extends Vue {
 
     if (event.which === ARROW_DOWN && this.suggestionsVisible) {
       event.preventDefault();
-      if (this.suggestionIndex < this.suggestions.length) {
+      if (this.suggestionIndex < this.suggestions.length - 1) {
         this.suggestionIndex = this.suggestionIndex + 1;
         this.inputQuery = this.suggestions[this.suggestionIndex].value;
       }
