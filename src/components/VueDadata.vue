@@ -17,13 +17,16 @@
       />
     </div>
     <div id="suggestions" class="vue-dadata__suggestions" v-if="suggestionsVisible">
-      <span
+      <Highlighter
         v-for="(suggestion, index) in suggestions"
         :key="`suggestion_${index}`"
-        @click="onSuggestionClick(index)"
+        @click.native="onSuggestionClick(index)"
         class="vue-dadata__suggestions-item"
         :class="{'vue-dadata__suggestions-item_current': index === suggestionIndex}"
-      >{{ suggestion.value}}</span>
+        :searchWords="inputQuery.split(' ')"
+        :autoEscape="true"
+        :textToHighlight="suggestion.value"
+      />
     </div>
   </div>
 </template>
@@ -34,9 +37,14 @@ import DadataAddress, { BoundsType } from '@/types/DadataAddress';
 import DadataSuggestion from '@/types/DadataSuggestion';
 import axios from 'axios';
 import getSuggestions from '@/api/getSuggestions';
+// @ts-ignore
+import Highlighter from 'vue-highlight-words';
 
 @Component({
   name: 'VueDadata',
+  components: {
+    Highlighter,
+  },
 })
 export default class VueDadata extends Vue {
   @Prop({ type: String, required: true }) public readonly token!: string;
