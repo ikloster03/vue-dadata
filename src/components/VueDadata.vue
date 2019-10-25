@@ -16,11 +16,11 @@
         @blur="onInputBlur"
       />
     </div>
-    <div id="suggestions" class="vue-dadata__suggestions" v-if="suggestionsVisible">
+    <div id="suggestions" class="vue-dadata__suggestions" v-if="inputFocused && suggestionsVisible">
       <Highlighter
         v-for="(suggestion, index) in suggestions"
         :key="`suggestion_${index}`"
-        @click.native="onSuggestionClick(index)"
+        @mousedown="onSuggestionClick(index)"
         class="vue-dadata__suggestions-item"
         :class="{'vue-dadata__suggestions-item_current': index === suggestionIndex}"
         :searchWords="inputQuery.split(' ')"
@@ -70,32 +70,28 @@ export default class VueDadata extends Vue {
   public isValid: boolean = false;
   protected textInput?: HTMLInputElement;
 
-  public created() {
-    // console.log('created');
-    // TODO
+  public async onInputFocus() {
+    this.inputFocused = true;
+    if (this.suggestions.length == 0) {
+      this.suggestions = await this.fetchSuggestions();
+    }
   }
 
-  public onInputFocus() {
-    // console.log('onInputFocus');
-    // TODO
-    // this.suggestionsVisible = true;
+  public async onInputBlur() {
+    this.inputFocused = false;
+    if (this.suggestions.length == 0) {
+      this.suggestions = await this.fetchSuggestions();
+    }
   }
 
-  public onInputBlur() {
-    // console.log('onInputBlur');
-    // console.log(event);
-    // this.suggestionsVisible = false
-    // TODO
-  }
-
-  public async onInputChange() {
-    // console.log('onInputChange');
+  public async onInputChange(event: any) {
+    const value: string = event.target.value;
+    this.inputQuery = value;
     this.suggestionsVisible = true;
     this.suggestions = await this.fetchSuggestions();
   }
 
   public async selectSuggestion(index: number) {
-    // console.log('selectSuggestion');
     if (this.suggestions.length >= index - 1) {
       this.inputQuery = this.suggestions[index].value;
       this.suggestionsVisible = false;
@@ -105,11 +101,11 @@ export default class VueDadata extends Vue {
       if (this.onChange) {
         this.onChange(this.suggestions[index]);
       }
+      this.suggestionIndex = -1;
     }
   }
 
   public async onKeyPress(event: KeyboardEvent) {
-    // console.log('onKeyPress', event.which);
     const ARROW_DOWN = 40;
     const ARROW_UP = 38;
     const ENTER = 13;
