@@ -1,9 +1,36 @@
 {
   "name": "vue-dadata",
   "version": "0.1.1",
+  "description": "Vue component for hinting addresses using dadata.ru",
   "main": "dist/vuedadatacomponent.umd.js",
   "module": "dist/vuedadatacomponent.esm.js",
   "unpkg": "dist/vuedadatacomponent.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikloster03/vue-dadata.git"
+  },
+  "keywords": [
+    "vue",
+    "ts",
+    "typescript",
+    "dadata",
+    "suggestion"
+  ],
+  "author": {
+    "name": "Ivan Monastyrev",
+    "email": "ikloster@yandex.ru",
+    "url": "https://ikloster.ru"
+  },
+  "contributors": [
+    {
+      "name": "Valery Roshett"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ikloster03/vue-dadata/issues"
+  },
+  "homepage": "https://github.com/ikloster03/vue-dadata#readme",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -32,9 +59,7 @@
     "@vue/test-utils": "1.0.0-beta.29",
     "cross-env": "^6.0.3",
     "rollup": "^1.25.2",
-    "rollup-plugin-buble": "^0.19.8",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-copy": "^3.1.0",
     "rollup-plugin-livereload": "^1.0.4",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
