@@ -22,6 +22,7 @@
         :key="`suggestion_${index}`"
         @mousedown="onSuggestionClick(index)"
         class="vue-dadata__suggestions-item"
+        highlightClassName="vue-dadata__suggestions-item-highlight"
         :class="{'vue-dadata__suggestions-item_current': index === suggestionIndex}"
         :searchWords="inputQuery.split(' ')"
         :autoEscape="true"
@@ -72,14 +73,14 @@ export default class VueDadata extends Vue {
 
   public async onInputFocus() {
     this.inputFocused = true;
-    if (this.suggestions.length == 0) {
+    if (this.suggestions.length === 0) {
       this.suggestions = await this.fetchSuggestions();
     }
   }
 
   public async onInputBlur() {
     this.inputFocused = false;
-    if (this.suggestions.length == 0) {
+    if (this.suggestions.length === 0) {
       this.suggestions = await this.fetchSuggestions();
     }
   }
@@ -150,8 +151,9 @@ export default class VueDadata extends Vue {
 
 <style lang="scss">
 .vue-dadata {
-  .vue-dadata__container {
+  &__container {
     width: 100%;
+    position: relative;
   }
 
   &__input {
@@ -159,20 +161,41 @@ export default class VueDadata extends Vue {
     width: 100%;
     height: 47px;
     outline: none;
+    border-radius: 4px;
+    border: 1px solid #f1c40f;
+    transition: .3s;
+    box-sizing: border-box;
+    padding: 0 5px;
+
+    &:focus {
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(255,154,0,0.1);
+      border-color: #FF931E;
+    }
   }
 
   &__suggestions {
+    position: absolute;
+    z-index: 10;
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #fff;
+
     &-item {
       padding: 10px;
       cursor: pointer;
-      &:hover {
-        background-color: #f1c40f;
+      transition: .3s;
+
+      &-highlight {
+        background-color: #ffdfbd;
       }
+
+      &:hover {
+          background-color: #ffdfbd;
+      }
+
       &_current {
-        background-color: #f1c40f;
+        background-color: #FFF5E7;
       }
     }
   }
