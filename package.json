@@ -1,11 +1,16 @@
 {
   "name": "vue-dadata",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
+  "main": "dist/vuedadatacomponent.umd.js",
+  "module": "dist/vuedadatacomponent.esm.js",
+  "unpkg": "dist/vuedadatacomponent.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "prod": "rollup -c --environment NODE_ENV:production",
+    "dev": "rollup -cw --environment NODE_ENV:development",
+    "watch": "rollup -cw",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit"
   },
@@ -25,9 +30,22 @@
     "@vue/cli-plugin-unit-jest": "^4.0.0",
     "@vue/cli-service": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
+    "cross-env": "^6.0.3",
+    "rollup": "^1.25.2",
+    "rollup-plugin-buble": "^0.19.8",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-copy": "^3.1.0",
+    "rollup-plugin-livereload": "^1.0.4",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-serve": "^1.0.1",
+    "rollup-plugin-terser": "^5.1.2",
+    "rollup-plugin-typescript2": "^0.24.3",
+    "rollup-plugin-vue": "^5.1.1",
+    "rollup-watch": "^4.3.1",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
-    "typescript": "~3.5.3",
+    "typescript": "^3.6.4",
     "vue-template-compiler": "^2.6.10"
   }
 }
