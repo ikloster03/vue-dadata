@@ -1,33 +1,33 @@
 <template>
-  <div class="vue-dadata vue-dadata__container">
-    <div class="vue-dadata__search">
-      <input
-        type="text"
-        class="vue-dadata__input"
-        :disabled="disabled"
-        :placeholder="placeholder"
-        v-model="inputQuery"
-        ref="inputText"
-        :autoComplete="autocomplete"
-        @change="onInputChange"
-        @input="onInputChange"
-        @keydown="onKeyPress"
-        @focus="onInputFocus"
-        @blur="onInputBlur"
-      />
-    </div>
-    <div id="suggestions" class="vue-dadata__suggestions" v-if="inputFocused && suggestionsVisible">
-      <Highlighter
-        v-for="(suggestion, index) in suggestions"
-        :key="`suggestion_${index}`"
-        @mousedown="onSuggestionClick(index)"
-        class="vue-dadata__suggestions-item"
-        highlightClassName="vue-dadata__suggestions-item-highlight"
-        :class="{'vue-dadata__suggestions-item_current': index === suggestionIndex}"
-        :searchWords="inputQuery.split(' ')"
-        :autoEscape="true"
-        :textToHighlight="suggestion.value"
-      />
+  <div :class="[defaultClass, ...getClasses()]">
+    <div :class="`${defaultClass}__container`">
+      <div :class="`${defaultClass}__search`">
+        <input
+          type="text"
+          :class="`${defaultClass}__input`"
+          :disabled="disabled"
+          :placeholder="placeholder"
+          v-model="inputQuery"
+          ref="inputText"
+          :autoComplete="autocomplete"
+          @change="onInputChange"
+          @input="onInputChange"
+          @keydown="onKeyPress"
+          @focus="onInputFocus"
+          @blur="onInputBlur"
+        />
+      </div>
+      <div :class="`${defaultClass}__suggestions`" v-if="inputFocused && suggestionsVisible">
+        <Highlighter
+          v-for="(suggestion, index) in suggestions"
+          :key="`suggestion_${index}`"
+          @mousedown="onSuggestionClick(index)"
+          :class="[`${defaultClass}__suggestions-item`, {[`${defaultClass}__suggestions-item_current`]: index === suggestionIndex}]"
+          :searchWords="inputQuery.split(' ')"
+          :autoEscape="true"
+          :textToHighlight="suggestion.value"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -57,7 +57,9 @@ export default class VueDadata extends Vue {
   @Prop(Boolean) public readonly disabled?: boolean;
   @Prop(String) public readonly fromBound?: BoundsType;
   @Prop(String) public readonly toBound?: BoundsType;
-  @Prop(String) public readonly address?: DadataSuggestion;
+  @Prop({ type: String, default: 'vue-dadata' })
+  public readonly defaultClass?: string;
+  @Prop({ type: String, default: '' }) public readonly classes?: string;
   @Prop(Function) public readonly onChange?: (
     suggestion: DadataSuggestion,
   ) => void;
@@ -70,6 +72,18 @@ export default class VueDadata extends Vue {
   public suggestionsVisible: boolean = true;
   public isValid: boolean = false;
   protected textInput?: HTMLInputElement;
+
+  public getClasses(): string[] {
+    return this.classes ? this.classes.split(' ') : [];
+  }
+
+  public async created() {
+    this.inputQuery = this.query ? this.query : '';
+
+    if (this.autoload && this.query) {
+      this.suggestions = await this.fetchSuggestions();
+    }
+  }
 
   public async onInputFocus() {
     this.inputFocused = true;
@@ -163,13 +177,14 @@ export default class VueDadata extends Vue {
     outline: none;
     border-radius: 4px;
     border: 1px solid #f1c40f;
-    transition: .3s;
+    transition: 0.3s;
     box-sizing: border-box;
     padding: 0 5px;
 
     &:focus {
-      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(255,154,0,0.1);
-      border-color: #FF931E;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 0 3px rgba(255, 154, 0, 0.1);
+      border-color: #ff931e;
     }
   }
 
@@ -184,18 +199,18 @@ export default class VueDadata extends Vue {
     &-item {
       padding: 10px;
       cursor: pointer;
-      transition: .3s;
+      transition: 0.3s;
 
       &-highlight {
         background-color: #ffdfbd;
       }
 
       &:hover {
-          background-color: #ffdfbd;
+        background-color: #ffdfbd;
       }
 
       &_current {
-        background-color: #FFF5E7;
+        background-color: #fff5e7;
       }
     }
   }
