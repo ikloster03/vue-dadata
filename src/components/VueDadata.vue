@@ -77,6 +77,14 @@ export default class VueDadata extends Vue {
     return this.classes ? this.classes.split(' ') : [];
   }
 
+  public async created() {
+    this.inputQuery = this.query ? this.query : '';
+
+    if (this.autoload && this.query) {
+      this.suggestions = await this.fetchSuggestions();
+    }
+  }
+
   public async onInputFocus() {
     this.inputFocused = true;
     if (this.suggestions.length === 0) {
