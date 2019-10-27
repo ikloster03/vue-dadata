@@ -59,8 +59,8 @@ export default {
       name: 'vueDadata'
     },
     {
-      file: 'dist/vuedadatacomponent.d.ts',
-      format: 'es',
+      file: 'dist/vuedadatacomponent.min.ts',
+      format: 'iife',
       name: 'vueDadata'
     },
   ],
