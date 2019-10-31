@@ -5,10 +5,9 @@ import DadataSuggestion from '@/types/DadataSuggestion';
 async function getSuggestions({
   token,
   query,
+  url = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
   count = 10,
 }: Suggestion): Promise<DadataSuggestion[]> {
-  const url: string =
-    'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
   const payload: SuggestionPayload = { query, count };
 
   try {
