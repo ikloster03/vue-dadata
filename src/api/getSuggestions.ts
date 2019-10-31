@@ -24,9 +24,7 @@ async function getSuggestions({
 
     return suggestions;
   } catch (error) {
-    // tslint:disable-next-line:no-console
-    console.error(error);
-    return [];
+    throw new Error(error);
   }
 }
 
