@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <vue-dadata :token="token"></vue-dadata>
+    <vue-dadata :token="token" @handleError="handleError"></vue-dadata>
   </div>
 </template>
 
@@ -19,6 +19,11 @@ export default class App extends Vue {
 
   public created() {
     this.token = process.env.VUE_APP_DADATA_API_KEY;
+  }
+
+  public handleError(error: Error) {
+    // tslint:disable-next-line:no-console
+    console.log(error);
   }
 }
 </script>
