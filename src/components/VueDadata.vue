@@ -157,6 +157,7 @@ export default class VueDadata extends Vue {
       const suggestions = await getSuggestions({
         token: this.token,
         query: this.inputQuery,
+        url: this.url,
       });
 
       return suggestions;
