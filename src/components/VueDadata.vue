@@ -54,6 +54,7 @@ export default class VueDadata extends Vue {
   @Prop(Boolean) public readonly autoload?: boolean;
   @Prop(Number) public readonly count?: number;
   @Prop(String) public readonly autocomplete?: string;
+  @Prop(String) public readonly url?: string;
   @Prop(Boolean) public readonly disabled?: boolean;
   @Prop(String) public readonly fromBound?: BoundsType;
   @Prop(String) public readonly toBound?: BoundsType;
@@ -71,7 +72,6 @@ export default class VueDadata extends Vue {
   public suggestionIndex: number = -1;
   public suggestionsVisible: boolean = true;
   public isValid: boolean = false;
-  protected textInput?: HTMLInputElement;
 
   public getClasses(): string[] {
     return this.classes ? this.classes.split(' ') : [];
@@ -157,6 +157,7 @@ export default class VueDadata extends Vue {
       const suggestions = await getSuggestions({
         token: this.token,
         query: this.inputQuery,
+        url: this.url,
       });
 
       return suggestions;

@@ -2,13 +2,16 @@ import axios from 'axios';
 import { Suggestion, SuggestionPayload } from '@/types/Suggestion';
 import DadataSuggestion from '@/types/DadataSuggestion';
 
+const DEFAULT_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
 async function getSuggestions({
   token,
   query,
+  url,
   count = 10,
 }: Suggestion): Promise<DadataSuggestion[]> {
-  const url: string =
-    'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
+
+  url = url || DEFAULT_URL;
+
   const payload: SuggestionPayload = { query, count };
 
   try {
