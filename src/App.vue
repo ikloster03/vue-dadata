@@ -3,6 +3,7 @@
     <vue-dadata
       :token="token"
       @handleError="handleError"
+      input-name="test"
       from-bound="region"
       to-bound="street"
     ></vue-dadata>

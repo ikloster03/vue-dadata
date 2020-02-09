@@ -4,6 +4,7 @@
       <div :class="`${defaultClass}__search`">
         <input
           type="text"
+          :name="inputName"
           :class="`${defaultClass}__input`"
           :disabled="disabled"
           :placeholder="placeholder"
@@ -65,6 +66,7 @@ export default class VueDadata extends Vue {
   @Prop(Boolean) public readonly disabled?: boolean;
   @Prop(String) public readonly fromBound?: BoundsType;
   @Prop(String) public readonly toBound?: BoundsType;
+  @Prop(String) public readonly inputName?: string;
   @Prop({ type: String, default: 'vue-dadata' })
   public readonly defaultClass?: string;
   @Prop({ type: String, default: '' }) public readonly classes?: string;
