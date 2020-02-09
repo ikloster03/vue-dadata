@@ -4,6 +4,7 @@
       <div :class="`${defaultClass}__search`">
         <input
           type="text"
+          :name="inputName"
           :class="`${defaultClass}__input`"
           :disabled="disabled"
           :placeholder="placeholder"
@@ -17,15 +18,27 @@
           @blur="onInputBlur"
         />
       </div>
-      <div :class="`${defaultClass}__suggestions`" v-if="inputFocused && suggestionsVisible">
-        <Highlighter
+      <div
+        v-if="inputFocused && suggestionsVisible"
+        :class="`${defaultClass}__suggestions`"
+      >
+        <highlighter
           v-for="(suggestion, index) in suggestions"
           :key="`suggestion_${index}`"
           @mousedown="onSuggestionClick(index)"
-          :class="[`${defaultClass}__suggestions-item`, {[`${defaultClass}__suggestions-item_current`]: index === suggestionIndex}]"
-          :searchWords="inputQuery.split(' ')"
-          :autoEscape="true"
-          :textToHighlight="suggestion.value"
+          :class="[
+            `${defaultClass}__suggestions-item`,
+            {
+              [`${defaultClass}__suggestions-item_current`]:
+                index === suggestionIndex,
+            },
+          ]"
+          :search-words="inputQuery.split(' ')"
+          :auto-escape="true"
+          :text-to-highlight="suggestion.value"
+          :highlight-class-name="highlightClassName"
+          :unhighlight-class-name="unhighlightClassName"
+          :highlight-tag="highlightTag"
         />
       </div>
     </div>
@@ -34,11 +47,9 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import DadataAddress, { BoundsType } from '@/types/DadataAddress';
+import { BoundsType } from '@/types/DadataAddress';
 import DadataSuggestion from '@/types/DadataSuggestion';
-import axios from 'axios';
 import getSuggestions from '@/api/getSuggestions';
-// @ts-ignore
 import Highlighter from 'vue-highlight-words';
 
 @Component({
@@ -58,6 +69,11 @@ export default class VueDadata extends Vue {
   @Prop(Boolean) public readonly disabled?: boolean;
   @Prop(String) public readonly fromBound?: BoundsType;
   @Prop(String) public readonly toBound?: BoundsType;
+  @Prop(String) public readonly inputName?: string;
+  @Prop(String) public readonly highlightClassName?: string;
+  @Prop(String) public readonly unhighlightClassName?: string;
+  @Prop({ type: String, default: 'mark' })
+  public readonly highlightTag?: string;
   @Prop({ type: String, default: 'vue-dadata' })
   public readonly defaultClass?: string;
   @Prop({ type: String, default: '' }) public readonly classes?: string;
@@ -66,12 +82,12 @@ export default class VueDadata extends Vue {
   ) => void;
   @Prop(Function) public readonly validate?: (value: string) => void;
 
-  public inputQuery: string = '';
-  public inputFocused: boolean = false;
+  public inputQuery = '';
+  public inputFocused = false;
   public suggestions: DadataSuggestion[] = [];
-  public suggestionIndex: number = -1;
-  public suggestionsVisible: boolean = true;
-  public isValid: boolean = false;
+  public suggestionIndex = -1;
+  public suggestionsVisible = true;
+  public isValid = false;
 
   public getClasses(): string[] {
     return this.classes ? this.classes.split(' ') : [];
@@ -99,8 +115,8 @@ export default class VueDadata extends Vue {
     }
   }
 
-  public async onInputChange(event: any) {
-    const value: string = event.target.value;
+  public async onInputChange(event: Event) {
+    const value: string = (event.target as HTMLInputElement).value;
     this.inputQuery = value;
     this.suggestionsVisible = true;
     this.suggestions = await this.fetchSuggestions();
@@ -159,7 +175,7 @@ export default class VueDadata extends Vue {
         query: this.inputQuery,
         url: this.url,
         toBound: this.toBound,
-        fromBound: this.fromBound
+        fromBound: this.fromBound,
       };
 
       const suggestions = await getSuggestions(request);
