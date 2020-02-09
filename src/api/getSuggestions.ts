@@ -8,12 +8,18 @@ async function getSuggestions({
   query,
   url,
   count = 10,
+  toBound,
+  fromBound
 }: Suggestion): Promise<DadataSuggestion[]> {
 
   url = url || DEFAULT_URL;
 
-  const payload: SuggestionPayload = { query, count };
-
+  const payload: SuggestionPayload = {
+    query,
+    count,
+    to_bound: { value: toBound},
+    from_bound: { value: fromBound}
+  };
   try {
     const {
       data: { suggestions },

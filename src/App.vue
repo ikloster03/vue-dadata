@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <vue-dadata :token="token" @handleError="handleError"></vue-dadata>
+    <vue-dadata
+      :token="token"
+      @handleError="handleError"
+      from-bound="region"
+      to-bound="street"
+    ></vue-dadata>
   </div>
 </template>
 

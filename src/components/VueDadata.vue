@@ -154,11 +154,15 @@ export default class VueDadata extends Vue {
 
   private async fetchSuggestions(): Promise<DadataSuggestion[]> {
     try {
-      const suggestions = await getSuggestions({
+      const request = {
         token: this.token,
         query: this.inputQuery,
         url: this.url,
-      });
+        toBound: this.toBound,
+        fromBound: this.fromBound
+      };
+
+      const suggestions = await getSuggestions(request);
 
       return suggestions;
     } catch (error) {
