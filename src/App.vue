@@ -3,9 +3,9 @@
     <vue-dadata
       :token="token"
       @handleError="handleError"
-      input-name="test"
+      input-name="vue-dadata"
       from-bound="region"
-      to-bound="street"
+      to-bound="house"
     ></vue-dadata>
   </div>
 </template>
