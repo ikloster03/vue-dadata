@@ -20,7 +20,7 @@ import VueDadata from '@/components/VueDadata.vue';
   },
 })
 export default class App extends Vue {
-  public token: string = '';
+  public token = '';
 
   public created() {
     this.token = process.env.VUE_APP_DADATA_API_KEY;
