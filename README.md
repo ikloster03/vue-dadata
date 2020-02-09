@@ -62,6 +62,9 @@ export default {
 | inputName  | No  |  string  |  Input name attribute |
 | fromBound  | No  |  string  |  Dadata bound type FROM |
 | toBound  | No  |  string  |  Dadata bound type TO |
+| highlightClassName  | No  |  string  |  CSS class name applied to highlighted text |
+| unhighlightClassName  | No  |  string  |  CSS class name applied to unhighlighted text |
+| highlightTag  | No  |  string  |  Type of tag to wrap around highlighted matches; defaults to `mark` but can also be a component |
 
 
 ## Dependencies
