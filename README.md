@@ -94,6 +94,7 @@ If you have found a bug or if you have a feature request, please report them at 
 ## Contributors
 
 - [Valery Roshett](https://github.com/Roshett)
+- [Ilya Kiselev](https://github.com/kiselev-webdev)
 
 ## [CHANGELOG](https://github.com/ikloster03/vue-dadata/blob/master/CHANGELOG.md)
 
