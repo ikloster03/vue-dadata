@@ -19,10 +19,10 @@
         />
       </div>
       <div
-        :class="`${defaultClass}__suggestions`"
         v-if="inputFocused && suggestionsVisible"
+        :class="`${defaultClass}__suggestions`"
       >
-        <Highlighter
+        <highlighter
           v-for="(suggestion, index) in suggestions"
           :key="`suggestion_${index}`"
           @mousedown="onSuggestionClick(index)"
@@ -33,9 +33,12 @@
                 index === suggestionIndex,
             },
           ]"
-          :searchWords="inputQuery.split(' ')"
-          :autoEscape="true"
-          :textToHighlight="suggestion.value"
+          :search-words="inputQuery.split(' ')"
+          :auto-escape="true"
+          :text-to-highlight="suggestion.value"
+          :highlight-class-name="highlightClassName"
+          :unhighlight-class-name="unhighlightClassName"
+          :highlight-tag="highlightTag"
         />
       </div>
     </div>
@@ -67,6 +70,10 @@ export default class VueDadata extends Vue {
   @Prop(String) public readonly fromBound?: BoundsType;
   @Prop(String) public readonly toBound?: BoundsType;
   @Prop(String) public readonly inputName?: string;
+  @Prop(String) public readonly highlightClassName?: string;
+  @Prop(String) public readonly unhighlightClassName?: string;
+  @Prop({ type: String, default: 'mark' })
+  public readonly highlightTag?: string;
   @Prop({ type: String, default: 'vue-dadata' })
   public readonly defaultClass?: string;
   @Prop({ type: String, default: '' }) public readonly classes?: string;
