@@ -59,6 +59,9 @@ export default {
 | autocomplete  | No  |  string  |  Autocomplete field |
 | defaultClass  | No  |  string  |  Default class ofr component, default value - `vue-dadata` |
 | classes  | No  |  string  |  Extra classes |
+| inputName  | No  |  string  |  Input name attribute |
+| fromBound  | No  |  string  |  Dadata bound type FROM |
+| toBound  | No  |  string  |  Dadata bound type TO |
 
 
 ## Dependencies
