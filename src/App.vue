@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <vue-dadata
+      ref="dadata"
       :token="token"
       @handleError="handleError"
+      @blur="handleBlur"
       input-name="vue-dadata"
       from-bound="region"
       to-bound="house"
@@ -28,6 +30,10 @@ export default class App extends Vue {
 
   public created() {
     this.token = process.env.VUE_APP_DADATA_API_KEY;
+  }
+
+  public handleBlur() {
+    this.$refs.dadata.setInputQuery('new');
   }
 
   public handleError(error: Error) {
