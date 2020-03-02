@@ -114,9 +114,10 @@ export default class VueDadata extends Vue {
       this.suggestions = await this.fetchSuggestions();
       this.$emit('blur');
     }
+    this.$emit('blur');
   }
 
-  public setInputQuery(value: string) {
+  setInputQuery(value: string) {
     this.inputQuery = value ? value : ''
   }
 
