@@ -4,7 +4,6 @@
       ref="dadata"
       :token="token"
       @handleError="handleError"
-      @blur="handleBlur"
       input-name="vue-dadata"
       from-bound="region"
       to-bound="house"
@@ -33,9 +32,9 @@ export default class App extends Vue {
     this.token = process.env.VUE_APP_DADATA_API_KEY;
   }
 
-  public handleBlur() {
-    this.dadata.setInputQuery('new');
-  }
+  // public handleBlur() {
+  //   this.dadata.setInputQuery('new');
+  // }
 
   public handleError(error: Error) {
     // tslint:disable-next-line:no-console
