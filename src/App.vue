@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <vue-dadata
+      ref="dadata"
       :token="token"
       @handleError="handleError"
       input-name="vue-dadata"
@@ -14,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Ref } from 'vue-property-decorator';
 import VueDadata from '@/components/VueDadata.vue';
 
 @Component({
@@ -25,14 +26,19 @@ import VueDadata from '@/components/VueDadata.vue';
 })
 export default class App extends Vue {
   public token = '';
+  @Ref('dadata') readonly dadata!: any;
 
   public created() {
     this.token = process.env.VUE_APP_DADATA_API_KEY;
   }
 
+  // public handleBlur() {
+  //   this.dadata.setInputQuery('new');
+  // }
+
   public handleError(error: Error) {
     // tslint:disable-next-line:no-console
-    console.log(error);
+    // console.log(error);
   }
 }
 </script>

@@ -112,7 +112,13 @@ export default class VueDadata extends Vue {
     this.inputFocused = false;
     if (this.suggestions.length === 0) {
       this.suggestions = await this.fetchSuggestions();
+      this.$emit('blur');
     }
+    this.$emit('blur');
+  }
+
+  setInputQuery(value: string) {
+    this.inputQuery = value ? value : ''
   }
 
   public async onInputChange(event: Event) {
