@@ -113,8 +113,7 @@ export default class VueDadata extends Vue {
     if (this.suggestions.length === 0) {
       this.suggestions = await this.fetchSuggestions();
       this.$emit('blur');
-    }
-    this.$emit('blur');
+    } else this.$emit('blur');
   }
 
   setInputQuery(value: string) {
