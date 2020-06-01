@@ -3,7 +3,7 @@
     <vue-dadata
       ref="dadata"
       :token="token"
-      @handleError="handleError"
+      @handle-error="handleError"
       input-name="vue-dadata"
       from-bound="region"
       to-bound="house"
