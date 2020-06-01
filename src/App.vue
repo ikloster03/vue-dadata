@@ -10,6 +10,7 @@
       highlight-class-name="vue-dadata__highlight"
       unhighlight-class-name="vue-dadata__unhighlight"
       highlight-tag="span"
+      :on-change="changed"
     ></vue-dadata>
   </div>
 </template>
@@ -39,6 +40,10 @@ export default class App extends Vue {
   public handleError(error: Error) {
     // tslint:disable-next-line:no-console
     // console.log(error);
+  }
+
+  public changed(payload: any) {
+    // console.log('payload', payload);
   }
 }
 </script>
