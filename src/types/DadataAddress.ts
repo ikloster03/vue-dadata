@@ -1,7 +1,12 @@
-
 export type CapitalMarkerType = '0' | '1' | '2' | '3' | '4';
 export type QCGeoType = '0' | '1' | '2' | '3' | '4' | '5';
-export type BoundsType = 'region' | 'area' | 'city' | 'settlement' | 'street' | 'house';
+export type BoundsType =
+  | 'region'
+  | 'area'
+  | 'city'
+  | 'settlement'
+  | 'street'
+  | 'house';
 
 export interface DadataAddress {
   area: string;

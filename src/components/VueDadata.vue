@@ -49,6 +49,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { BoundsType } from '@/types/DadataAddress';
 import DadataSuggestion from '@/types/DadataSuggestion';
+import LocationOptions from '@/types/LocationOptions';
 import getSuggestions from '@/api/getSuggestions';
 import Highlighter from 'vue-highlight-words';
 
@@ -70,6 +71,15 @@ export default class VueDadata extends Vue {
   @Prop(String) public readonly fromBound?: BoundsType;
   @Prop(String) public readonly toBound?: BoundsType;
   @Prop(String) public readonly inputName?: string;
+  @Prop({
+    type: Object,
+    default: () => ({
+      language: 'ru',
+      locations: [],
+      locationsBoost: [],
+    }),
+  })
+  public readonly locationOptions!: LocationOptions;
   @Prop(String) public readonly highlightClassName?: string;
   @Prop(String) public readonly unhighlightClassName?: string;
   @Prop({ type: String, default: 'mark' })
@@ -117,7 +127,7 @@ export default class VueDadata extends Vue {
   }
 
   setInputQuery(value: string) {
-    this.inputQuery = value ? value : ''
+    this.inputQuery = value ? value : '';
   }
 
   public async onInputChange(event: Event) {
@@ -181,6 +191,7 @@ export default class VueDadata extends Vue {
         url: this.url,
         toBound: this.toBound,
         fromBound: this.fromBound,
+        locationOptions: this.locationOptions,
       };
 
       const suggestions = await getSuggestions(request);

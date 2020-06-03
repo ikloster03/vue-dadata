@@ -27,6 +27,13 @@ import VueDadata from '@/components/VueDadata.vue';
 })
 export default class App extends Vue {
   public token = '';
+  // public locations = {
+  //   language: 'ru',
+  //   locations: [{
+  //       "region": "москва"
+  //   }]
+  // };
+
   @Ref('dadata') readonly dadata!: any;
 
   public created() {
