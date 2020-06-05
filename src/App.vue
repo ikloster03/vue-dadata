@@ -11,6 +11,7 @@
       unhighlight-class-name="vue-dadata__unhighlight"
       highlight-tag="span"
       :on-change="changed"
+      :location-options="locations"
     ></vue-dadata>
   </div>
 </template>
@@ -27,6 +28,18 @@ import VueDadata from '@/components/VueDadata.vue';
 })
 export default class App extends Vue {
   public token = '';
+  public locations = {
+    language: 'ru',
+    locations: [
+      // {
+      //   region: 'москва',
+      // },
+      {
+        country: '*',
+      },
+    ],
+  };
+
   @Ref('dadata') readonly dadata!: any;
 
   public created() {

@@ -65,6 +65,7 @@ export default {
 | highlightClassName  | No  |  string  |  CSS class name applied to highlighted text |
 | unhighlightClassName  | No  |  string  |  CSS class name applied to unhighlighted text |
 | highlightTag  | No  |  string  |  Type of tag to wrap around highlighted matches; defaults to `mark` but can also be a component |
+| locationOptions  | No  |  object  |  Location options for choosing cities or countries |
 
 
 ## Dependencies

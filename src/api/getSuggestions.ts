@@ -12,6 +12,7 @@ async function getSuggestions({
   count = 10,
   toBound,
   fromBound,
+  locationOptions,
 }: Suggestion): Promise<DadataSuggestion[]> {
   url = url || DEFAULT_URL;
 
@@ -20,6 +21,9 @@ async function getSuggestions({
     count,
     to_bound: { value: toBound },
     from_bound: { value: fromBound },
+    language: locationOptions.language,
+    locations: locationOptions.locations,
+    locations_boost: locationOptions.locationsBoost
   };
   try {
     const {
