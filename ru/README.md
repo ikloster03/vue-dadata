@@ -4,6 +4,8 @@
 
 Это vue компонент для подсказок с использованием сервиса [DaData.ru](https://dadata.ru).
 
+[Ссылка на EN документацию](https://github.com/ikloster03/vue-dadata/tree/master/README.md)
+
 ## Установка
 
 [npm package](https://www.npmjs.com/package/vue-dadata)
