@@ -1,5 +1,6 @@
 # Vue Dadata
 
+![Publish](https://github.com/ikloster03/vue-dadata/workflows/Publish/badge.svg)
 [![gitlocalized ](https://gitlocalize.com/repo/3342/whole_project/badge.svg)](https://gitlocalize.com/repo/3342/whole_project?utm_source=badge)
 
 It's a vue component for hinting addresses using [DaData.ru](https://dadata.ru).

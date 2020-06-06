@@ -2,6 +2,10 @@
 
 [Link to RU changelog](https://github.com/ikloster03/vue-dadata/tree/master/ru/CHANGELOG.md)
 
+## v1.4.5 - June 06, 2020
+
+Add ci/cd 
+
 ## v1.3.2 - June 06, 2020
 
 RU documentation
