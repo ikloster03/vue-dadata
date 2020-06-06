@@ -1,5 +1,7 @@
 # Vue Dadata
 
+[![gitlocalized ](https://gitlocalize.com/repo/3342/whole_project/badge.svg)](https://gitlocalize.com/repo/3342/whole_project?utm_source=badge)
+
 Это vue компонент для подсказок с использованием сервиса [DaData.ru](https://dadata.ru).
 
 ## Установка
@@ -58,6 +60,7 @@ locationOptions | Нет | object | Варианты расположения д
 - [vue-class-component](https://github.com/vuejs/vue-class-component)
 - [vue-property-decorator](https://github.com/kaorun343/vue-property-decorator)
 - [vue-highlight-words](https://github.com/Astray-git/vue-highlight-words)
+- [vue-debounce-decorator](https://github.com/trepz/vue-debounce-decorator)
 
 ## Отчет о проблемах
 

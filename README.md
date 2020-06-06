@@ -1,5 +1,7 @@
 # Vue Dadata
 
+[![gitlocalized ](https://gitlocalize.com/repo/3342/whole_project/badge.svg)](https://gitlocalize.com/repo/3342/whole_project?utm_source=badge)
+
 It's a vue component for hinting addresses using [DaData.ru](https://dadata.ru).
 
 
@@ -70,12 +72,13 @@ export default {
 
 ## Dependencies
 
-* [axios](https://github.com/axios/axios)
-* [core-js](https://github.com/zloirock/core-js)
-* [vue](https://github.com/vuejs/vue)
-* [vue-class-component](https://github.com/vuejs/vue-class-component)
-* [vue-property-decorator](https://github.com/kaorun343/vue-property-decorator)
-* [vue-highlight-words](https://github.com/Astray-git/vue-highlight-words)
+- [axios](https://github.com/axios/axios)
+- [core-js](https://github.com/zloirock/core-js)
+- [vue](https://github.com/vuejs/vue)
+- [vue-class-component](https://github.com/vuejs/vue-class-component)
+- [vue-property-decorator](https://github.com/kaorun343/vue-property-decorator)
+- [vue-highlight-words](https://github.com/Astray-git/vue-highlight-words)
+- [vue-debounce-decorator](https://github.com/trepz/vue-debounce-decorator)
 
 ## Issue Reporting
 
