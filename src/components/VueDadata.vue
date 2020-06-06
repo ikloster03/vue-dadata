@@ -11,7 +11,6 @@
           v-model="inputQuery"
           ref="inputText"
           :autoComplete="autocomplete"
-          @change="onInputChange"
           @input="onInputChange"
           @keydown="onKeyPress"
           @focus="onInputFocus"
@@ -113,17 +112,10 @@ export default class VueDadata extends Vue {
 
   public async onInputFocus() {
     this.inputFocused = true;
-    if (this.suggestions.length === 0) {
-      this.suggestions = await this.fetchSuggestions();
-    }
   }
 
   public async onInputBlur() {
     this.inputFocused = false;
-    if (this.suggestions.length === 0) {
-      this.suggestions = await this.fetchSuggestions();
-      this.$emit('blur');
-    } else this.$emit('blur');
   }
 
   setInputQuery(value: string) {
@@ -180,7 +172,10 @@ export default class VueDadata extends Vue {
   }
 
   public async onSuggestionClick(index: number) {
-    this.selectSuggestion(index);
+    if (this.suggestions.length >= index - 1) {
+      this.inputQuery = this.suggestions[index].value;
+      this.suggestions = await this.fetchSuggestions();
+    }
   }
 
   private async fetchSuggestions(): Promise<DadataSuggestion[]> {
