@@ -11,7 +11,6 @@
           v-model="inputQuery"
           ref="inputText"
           :autoComplete="autocomplete"
-          @change="onInputChange"
           @input="onInputChange"
           @keydown="onKeyPress"
           @focus="onInputFocus"
@@ -52,6 +51,7 @@ import DadataSuggestion from '@/types/DadataSuggestion';
 import LocationOptions from '@/types/LocationOptions';
 import getSuggestions from '@/api/getSuggestions';
 import Highlighter from 'vue-highlight-words';
+import { Debounce } from 'vue-debounce-decorator';
 
 @Component({
   name: 'VueDadata',
@@ -113,23 +113,17 @@ export default class VueDadata extends Vue {
 
   public async onInputFocus() {
     this.inputFocused = true;
-    if (this.suggestions.length === 0) {
-      this.suggestions = await this.fetchSuggestions();
-    }
   }
 
   public async onInputBlur() {
     this.inputFocused = false;
-    if (this.suggestions.length === 0) {
-      this.suggestions = await this.fetchSuggestions();
-      this.$emit('blur');
-    } else this.$emit('blur');
   }
 
   setInputQuery(value: string) {
     this.inputQuery = value ? value : '';
   }
 
+  @Debounce(300)
   public async onInputChange(event: Event) {
     const value: string = (event.target as HTMLInputElement).value;
     this.inputQuery = value;
@@ -180,7 +174,10 @@ export default class VueDadata extends Vue {
   }
 
   public async onSuggestionClick(index: number) {
-    this.selectSuggestion(index);
+    if (this.suggestions.length >= index - 1) {
+      this.inputQuery = this.suggestions[index].value;
+      this.suggestions = await this.fetchSuggestions();
+    }
   }
 
   private async fetchSuggestions(): Promise<DadataSuggestion[]> {
