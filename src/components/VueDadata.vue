@@ -51,6 +51,7 @@ import DadataSuggestion from '@/types/DadataSuggestion';
 import LocationOptions from '@/types/LocationOptions';
 import getSuggestions from '@/api/getSuggestions';
 import Highlighter from 'vue-highlight-words';
+import { Debounce } from 'vue-debounce-decorator';
 
 @Component({
   name: 'VueDadata',
@@ -122,6 +123,7 @@ export default class VueDadata extends Vue {
     this.inputQuery = value ? value : '';
   }
 
+  @Debounce(300)
   public async onInputChange(event: Event) {
     const value: string = (event.target as HTMLInputElement).value;
     this.inputQuery = value;
