@@ -4,7 +4,7 @@
 
 It's a vue component for hinting addresses using [DaData.ru](https://dadata.ru).
 
-[link to RU documentation](https://github.com/ikloster03/vue-dadata/tree/master/ru/README.md)
+[Link to RU documentation](https://github.com/ikloster03/vue-dadata/tree/master/ru/README.md)
 
 ## Install
 

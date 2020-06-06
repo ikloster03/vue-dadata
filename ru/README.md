@@ -31,7 +31,22 @@ import VueDadata from 'vue-dadata'  Vue.use(VueDadata)
 ### Локальный импорт
 
 ```html
-<template>   <div id="app">     <vue-dadata token="dadata_api_key"></vue-dadata>   </div> </template>  <script> import VueDadata from 'vue-dadata'  export default {   name: 'VueDadataTest',   components: {     'vue-dadata': VueDadata   } } </script>
+<template>
+  <div id="app">
+    <vue-dadata token="dadata_api_key"></vue-dadata>
+  </div>
+</template>
+
+<script>
+import VueDadata from 'vue-dadata'
+
+export default {
+  name: 'VueDadataTest',
+  components: {
+    'vue-dadata': VueDadata
+  }
+}
+</script>
 ```
 
 ### Свойства (пропсы)
