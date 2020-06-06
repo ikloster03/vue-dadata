@@ -1,4 +1,6 @@
-# Изменения
+# Сhangelog
+
+[Ссылка на EN changelog](https://github.com/ikloster03/vue-dadata/tree/master/CHANGELOG.md)
 
 ## v1.3.2 - 06 июня 2020 г.
 
