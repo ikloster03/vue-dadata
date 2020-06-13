@@ -2,48 +2,24 @@
   "name": "vue-dadata",
   "version": "1.4.6",
   "description": "Vue component for hinting addresses using dadata.ru",
-  "main": "dist/vuedadatacomponent.umd.js",
-  "module": "dist/vuedadatacomponent.esm.js",
-  "unpkg": "dist/vuedadatacomponent.min.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ikloster03/vue-dadata.git"
-  },
-  "keywords": [
-    "vue",
-    "ts",
-    "typescript",
-    "dadata",
-    "suggestion"
-  ],
   "author": {
     "name": "Ivan Monastyrev",
     "email": "ikloster@yandex.ru",
     "url": "https://ikloster.ru"
   },
-  "contributors": [
-    {
-      "name": "Valery Roshett"
-    },
-    {
-      "name": "Ilya Kiselev"
-    }
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ikloster03/vue-dadata/issues"
-  },
-  "homepage": "https://github.com/ikloster03/vue-dadata#readme",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "prod": "rollup -c --environment NODE_ENV:production",
-    "dev": "rollup -cw --environment NODE_ENV:development",
-    "watch": "rollup -cw",
+    "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit"
+    "lint": "vue-cli-service lint",
+    "dev": "rollup -cw --environment NODE_ENV:development",
+    "prod": "rollup -c --environment NODE_ENV:production",
+    "watch": "rollup -cw"
   },
+  "main": "dist/vuedadatacomponent.umd.js",
+  "module": "dist/vuedadatacomponent.esm.js",
+  "unpkg": "dist/vuedadatacomponent.min.js",
   "dependencies": {
     "axios": "0.19.2",
     "core-js": "3.6.4",
@@ -57,12 +33,12 @@
     "@types/jest": "24.0.11",
     "@typescript-eslint/eslint-plugin": "2.18.0",
     "@typescript-eslint/parser": "2.18.0",
-    "@vue/cli-plugin-babel": "4.2.0",
-    "@vue/cli-plugin-e2e-cypress": "4.0.0",
-    "@vue/cli-plugin-eslint": "4.2.0",
-    "@vue/cli-plugin-typescript": "4.2.0",
-    "@vue/cli-plugin-unit-jest": "4.0.0",
-    "@vue/cli-service": "4.2.0",
+    "@vue/cli-plugin-babel": "~4.4.4",
+    "@vue/cli-plugin-e2e-cypress": "~4.4.4",
+    "@vue/cli-plugin-eslint": "~4.4.4",
+    "@vue/cli-plugin-typescript": "~4.4.4",
+    "@vue/cli-plugin-unit-jest": "~4.4.4",
+    "@vue/cli-service": "~4.4.4",
     "@vue/eslint-config-prettier": "6.0.0",
     "@vue/eslint-config-typescript": "5.0.1",
     "@vue/test-utils": "1.0.0-beta.29",
@@ -83,7 +59,31 @@
     "rollup-watch": "^4.3.1",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
-    "typescript": "3.7.5",
+    "typescript": "~3.9.3",
     "vue-template-compiler": "2.6.11"
+  },
+  "bugs": {
+    "url": "https://github.com/ikloster03/vue-dadata/issues"
+  },
+  "contributors": [
+    {
+      "name": "Valery Roshett"
+    },
+    {
+      "name": "Ilya Kiselev"
+    }
+  ],
+  "homepage": "https://github.com/ikloster03/vue-dadata#readme",
+  "keywords": [
+    "vue",
+    "ts",
+    "typescript",
+    "dadata",
+    "suggestion"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikloster03/vue-dadata.git"
   }
 }
