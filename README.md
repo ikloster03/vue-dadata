@@ -72,6 +72,7 @@ export default {
 | unhighlightClassName  | No  |  string  |  CSS class name applied to unhighlighted text |
 | highlightTag  | No  |  string  |  Type of tag to wrap around highlighted matches; defaults to `mark` but can also be a component |
 | locationOptions  | No  |  object  |  Location options for choosing cities or countries |
+| autoSelectOnEnter  | No  |  boolean  |  Select first suggestion on ENTER key press when no one suggestion is focused |
 
 
 ## Dependencies

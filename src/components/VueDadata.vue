@@ -91,6 +91,7 @@ export default class VueDadata extends Vue {
     suggestion: DadataSuggestion,
   ) => void;
   @Prop(Function) public readonly validate?: (value: string) => void;
+  @Prop({type: Boolean, default: false}) public readonly autoSelectOnEnter?: boolean;
 
   public inputQuery = '';
   public inputFocused = false;
@@ -169,6 +170,8 @@ export default class VueDadata extends Vue {
       event.preventDefault();
       if (this.suggestionIndex >= 0) {
         this.selectSuggestion(this.suggestionIndex);
+      } else if(this.autoSelectOnEnter && this.suggestions.length > 0){
+        this.selectSuggestion(0);
       }
     }
   }
