@@ -168,16 +168,13 @@ export default class VueDadata extends Vue {
     } else if (event.which === ENTER) {
       event.preventDefault();
       if (this.suggestionIndex >= 0) {
-        this.selectSuggestion(this.suggestionIndex);
+        await this.selectSuggestion(this.suggestionIndex);
       }
     }
   }
 
   public async onSuggestionClick(index: number) {
-    if (this.suggestions.length >= index - 1) {
-      this.inputQuery = this.suggestions[index].value;
-      this.suggestions = await this.fetchSuggestions();
-    }
+    await this.selectSuggestion(index);
   }
 
   private async fetchSuggestions(): Promise<DadataSuggestion[]> {
