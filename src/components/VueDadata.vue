@@ -136,12 +136,13 @@ export default class VueDadata extends Vue {
       this.inputQuery = this.suggestions[index].value;
       this.suggestionsVisible = false;
       await this.$nextTick();
-      await this.fetchSuggestions();
 
       if (this.onChange) {
-        this.onChange(this.suggestions[index]);
+        this.onChange((await this.fetchSuggestions(1))[0]);
       }
+      
       this.suggestionIndex = -1;
+      this.suggestions.length = 0;
     }
   }
 
@@ -177,7 +178,7 @@ export default class VueDadata extends Vue {
     await this.selectSuggestion(index);
   }
 
-  private async fetchSuggestions(): Promise<DadataSuggestion[]> {
+  private async fetchSuggestions(count?: number): Promise<DadataSuggestion[]> {
     try {
       const request = {
         token: this.token,
@@ -186,6 +187,7 @@ export default class VueDadata extends Vue {
         toBound: this.toBound,
         fromBound: this.fromBound,
         locationOptions: this.locationOptions,
+        count,
       };
 
       const suggestions = await getSuggestions(request);
