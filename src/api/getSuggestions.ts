@@ -24,7 +24,7 @@ async function getSuggestions({
     from_bound: { value: fromBound },
     language: locationOptions.language,
     locations: locationOptions.locations,
-    locations_boost: locationOptions.locationsBoost
+    locations_boost: locationOptions.locationsBoost,
   };
   try {
     const {
