@@ -88,7 +88,7 @@ export default class VueDadata extends Vue {
   public readonly defaultClass?: string;
   @Prop({ type: String, default: '' }) public readonly classes?: string;
   @Prop(Function) public readonly onChange?: (
-    suggestion: DadataSuggestion,
+    suggestion: DadataSuggestion | null,
   ) => void;
   @Prop(Function) public readonly validate?: (value: string) => void;
 
@@ -138,9 +138,16 @@ export default class VueDadata extends Vue {
       await this.$nextTick();
 
       if (this.onChange) {
-        this.onChange((await this.fetchSuggestions(1))[0]);
+        const suggestions = await this.fetchSuggestions(1);
+        let suggestion: DadataSuggestion | null = null;
+
+        if (suggestions.length > 0) {
+          suggestion = suggestions[0];
+        }
+
+        this.onChange(suggestion);
       }
-      
+
       this.suggestionIndex = -1;
       this.suggestions.length = 0;
     }
