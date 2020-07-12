@@ -9,12 +9,13 @@ async function getSuggestions({
   token,
   query,
   url,
-  count = 10,
+  count,
   toBound,
   fromBound,
   locationOptions,
 }: Suggestion): Promise<DadataSuggestion[]> {
   url = url || DEFAULT_URL;
+  count = count || 10;
 
   const payload: SuggestionPayload = {
     query,
@@ -23,7 +24,7 @@ async function getSuggestions({
     from_bound: { value: fromBound },
     language: locationOptions.language,
     locations: locationOptions.locations,
-    locations_boost: locationOptions.locationsBoost
+    locations_boost: locationOptions.locationsBoost,
   };
   try {
     const {
