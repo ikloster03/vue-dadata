@@ -77,6 +77,7 @@ export default class VueDadata extends Vue {
       language: 'ru',
       locations: [],
       locationsBoost: [],
+      restrictValue: false,
     }),
   })
   public readonly locationOptions!: LocationOptions;
