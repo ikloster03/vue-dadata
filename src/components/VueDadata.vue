@@ -91,6 +91,9 @@ export default class VueDadata extends Vue {
   @Prop(Function) public readonly onChange?: (
     suggestion: DadataSuggestion | null,
   ) => void;
+  @Prop(Function) public readonly onQueryChange?: (
+    value: String | null,
+  ) => void;
   @Prop(Function) public readonly validate?: (value: string) => void;
 
   public inputQuery = '';
@@ -130,6 +133,10 @@ export default class VueDadata extends Vue {
     this.inputQuery = value;
     this.suggestionsVisible = true;
     this.suggestions = await this.fetchSuggestions();
+
+    if (this.onQueryChange) {
+        this.onQueryChange(this.inputQuery);
+    }
   }
 
   public async selectSuggestion(index: number) {

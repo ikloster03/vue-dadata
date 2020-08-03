@@ -60,6 +60,7 @@ export default {
 | query  | No  | string  | Initial state input field  |
 | autoload  | No  | boolean  | If `true`, then a request for tips will be initialed in the background in the created hook  |
 | onChange  | No  | function(suggestion: DadataSuggestion) -> void  | Function called when selecting a tooltip  |
+| onQueryChange  | No  | function(value: String) -> void  | Function called when changing input  |
 | autocomplete  | No  |  string  |  Autocomplete field |
 | defaultClass  | No  |  string  |  Default class ofr component, default value - `vue-dadata` |
 | classes  | No  |  string  |  Extra classes |
