@@ -47,11 +47,13 @@
   "dependencies": {
     "axios": "0.19.2",
     "core-js": "3.6.4",
-    "vue": "2.6.11",
     "vue-class-component": "7.2.2",
     "vue-debounce-decorator": "^1.0.1",
     "vue-highlight-words": "1.2.0",
     "vue-property-decorator": "8.3.0"
+  },
+  "peerDependencies": {
+    "vue": "2.6.11",
   },
   "devDependencies": {
     "@types/jest": "24.0.11",
