@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { BoundsType } from '@/types/DadataAddress';
 import DadataSuggestion from '@/types/DadataSuggestion';
 import LocationOptions from '@/types/LocationOptions';
@@ -91,6 +91,7 @@ export default class VueDadata extends Vue {
     suggestion: DadataSuggestion | null,
   ) => void;
   @Prop(Function) public readonly validate?: (value: string) => void;
+  @Watch('query') onQueryChanged(val: string) {this.inputQuery = val;}
 
   public inputQuery = '';
   public inputFocused = false;
