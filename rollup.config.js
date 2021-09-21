@@ -6,8 +6,9 @@ import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import livereload from 'rollup-plugin-livereload';
 import serve from 'rollup-plugin-serve';
+import rollupJson from 'rollup-plugin-json';
 
-require('fs').unlink('dist/index.d.ts', err => {});
+require('fs').unlink('dist/index.d.ts', (err) => {});
 
 const plugins = [
   typescript({
@@ -27,8 +28,9 @@ const plugins = [
   }),
   nodeResolve({
     browser: true,
-    jsnext: true
+    jsnext: true,
   }),
+  rollupJson(),
 ];
 
 if (process.env.NODE_ENV === 'production') {
@@ -51,17 +53,17 @@ export default {
     {
       file: 'dist/vuedadatacomponent.esm.js',
       format: 'esm',
-      name: 'vueDadata'
+      name: 'vueDadata',
     },
     {
       file: 'dist/vuedadatacomponent.umd.js',
       format: 'umd',
-      name: 'vueDadata'
+      name: 'vueDadata',
     },
     {
       file: 'dist/vuedadatacomponent.min.js',
       format: 'iife',
-      name: 'vueDadata'
+      name: 'vueDadata',
     },
   ],
   sourcemap: true,
