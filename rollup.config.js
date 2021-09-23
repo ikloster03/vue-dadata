@@ -6,14 +6,13 @@ import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import livereload from 'rollup-plugin-livereload';
 import serve from 'rollup-plugin-serve';
-import rollupJson from 'rollup-plugin-json';
 
 require('fs').unlink('dist/index.d.ts', (err) => {});
 
 const plugins = [
   typescript({
     typescript: require('typescript'),
-    objectHashIgnoreUnknownHack: true,
+    // objectHashIgnoreUnknownHack: true,
   }),
   commonjs(),
   replace({
@@ -30,7 +29,6 @@ const plugins = [
     browser: true,
     jsnext: true,
   }),
-  rollupJson(),
 ];
 
 if (process.env.NODE_ENV === 'production') {
