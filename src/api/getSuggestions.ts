@@ -24,6 +24,7 @@ async function getSuggestions({
     language: locationOptions.language,
     locations: locationOptions.locations,
     locations_boost: locationOptions.locationsBoost,
+    restrict_value: locationOptions.restrictValue || false,
   };
   const {
     data: { suggestions },
