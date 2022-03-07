@@ -7,12 +7,12 @@ import { terser } from 'rollup-plugin-terser';
 import livereload from 'rollup-plugin-livereload';
 import serve from 'rollup-plugin-serve';
 
-require('fs').unlink('dist/index.d.ts', err => {});
+require('fs').unlink('dist/index.d.ts', (err) => {});
 
 const plugins = [
   typescript({
     typescript: require('typescript'),
-    objectHashIgnoreUnknownHack: true,
+    // objectHashIgnoreUnknownHack: true,
   }),
   commonjs(),
   replace({
@@ -27,7 +27,7 @@ const plugins = [
   }),
   nodeResolve({
     browser: true,
-    jsnext: true
+    jsnext: true,
   }),
 ];
 
@@ -51,17 +51,17 @@ export default {
     {
       file: 'dist/vuedadatacomponent.esm.js',
       format: 'esm',
-      name: 'vueDadata'
+      name: 'vueDadata',
     },
     {
       file: 'dist/vuedadatacomponent.umd.js',
       format: 'umd',
-      name: 'vueDadata'
+      name: 'vueDadata',
     },
     {
       file: 'dist/vuedadatacomponent.min.js',
       format: 'iife',
-      name: 'vueDadata'
+      name: 'vueDadata',
     },
   ],
   sourcemap: true,

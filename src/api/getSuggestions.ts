@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import axios from 'axios';
 import { Suggestion, SuggestionPayload } from '@/types/Suggestion';
 import DadataSuggestion from '@/types/DadataSuggestion';
@@ -9,12 +8,13 @@ async function getSuggestions({
   token,
   query,
   url,
-  count = 10,
+  count,
   toBound,
   fromBound,
   locationOptions,
 }: Suggestion): Promise<DadataSuggestion[]> {
   url = url || DEFAULT_URL;
+  count = count || 10;
 
   const payload: SuggestionPayload = {
     query,
@@ -23,23 +23,19 @@ async function getSuggestions({
     from_bound: { value: fromBound },
     language: locationOptions.language,
     locations: locationOptions.locations,
-    locations_boost: locationOptions.locationsBoost
+    locations_boost: locationOptions.locationsBoost,
   };
-  try {
-    const {
-      data: { suggestions },
-    } = await axios.post(url, payload, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Token ${token}`,
-      },
-    });
+  const {
+    data: { suggestions },
+  } = await axios.post(url, payload, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Token ${token}`,
+    },
+  });
 
-    return suggestions;
-  } catch (error) {
-    throw new Error(error);
-  }
+  return suggestions;
 }
 
 export default getSuggestions;

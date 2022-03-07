@@ -1,69 +1,25 @@
 {
   "name": "vue-dadata",
-  "version": "1.4.6",
+  "version": "2.0.0",
   "description": "Vue component for hinting addresses using dadata.ru",
+  "main": "dist/vuedadatacomponent.umd.js",
+  "module": "dist/vuedadatacomponent.esm.js",
+  "unpkg": "dist/vuedadatacomponent.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikloster03/vue-dadata.git"
+  },
+  "keywords": [
+    "vue",
+    "ts",
+    "typescript",
+    "dadata",
+    "suggestion"
+  ],
   "author": {
     "name": "Ivan Monastyrev",
     "email": "ikloster@yandex.ru",
     "url": "https://ikloster.ru"
-  },
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint",
-    "dev": "rollup -cw --environment NODE_ENV:development",
-    "prod": "rollup -c --environment NODE_ENV:production",
-    "watch": "rollup -cw"
-  },
-  "main": "dist/vuedadatacomponent.umd.js",
-  "module": "dist/vuedadatacomponent.esm.js",
-  "unpkg": "dist/vuedadatacomponent.min.js",
-  "dependencies": {
-    "axios": "0.19.2",
-    "core-js": "3.6.4",
-    "vue": "2.6.11",
-    "vue-class-component": "7.2.2",
-    "vue-debounce-decorator": "^1.0.1",
-    "vue-highlight-words": "1.2.0",
-    "vue-property-decorator": "8.3.0"
-  },
-  "devDependencies": {
-    "@types/jest": "24.0.11",
-    "@typescript-eslint/eslint-plugin": "2.18.0",
-    "@typescript-eslint/parser": "2.18.0",
-    "@vue/cli-plugin-babel": "~4.4.4",
-    "@vue/cli-plugin-e2e-cypress": "~4.4.4",
-    "@vue/cli-plugin-eslint": "~4.4.4",
-    "@vue/cli-plugin-typescript": "~4.4.4",
-    "@vue/cli-plugin-unit-jest": "~4.4.4",
-    "@vue/cli-service": "~4.4.4",
-    "@vue/eslint-config-prettier": "6.0.0",
-    "@vue/eslint-config-typescript": "5.0.1",
-    "@vue/test-utils": "1.0.0-beta.29",
-    "cross-env": "^6.0.3",
-    "eslint": "6.7.2",
-    "eslint-plugin-prettier": "3.1.1",
-    "eslint-plugin-vue": "6.1.2",
-    "prettier": "1.19.1",
-    "rollup": "^1.25.2",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-livereload": "^1.0.4",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-serve": "^1.0.1",
-    "rollup-plugin-terser": "^5.2.0",
-    "rollup-plugin-typescript2": "^0.24.3",
-    "rollup-plugin-vue": "^5.1.1",
-    "rollup-watch": "^4.3.1",
-    "sass": "^1.19.0",
-    "sass-loader": "^8.0.0",
-    "typescript": "~3.9.3",
-    "vue-template-compiler": "2.6.11"
-  },
-  "bugs": {
-    "url": "https://github.com/ikloster03/vue-dadata/issues"
   },
   "contributors": [
     {
@@ -73,17 +29,61 @@
       "name": "Ilya Kiselev"
     }
   ],
-  "homepage": "https://github.com/ikloster03/vue-dadata#readme",
-  "keywords": [
-    "vue",
-    "ts",
-    "typescript",
-    "dadata",
-    "suggestion"
-  ],
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ikloster03/vue-dadata.git"
+  "bugs": {
+    "url": "https://github.com/ikloster03/vue-dadata/issues"
+  },
+  "homepage": "https://github.com/ikloster03/vue-dadata#readme",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "prod": "rollup -c --environment NODE_ENV:production",
+    "dev": "rollup -cw --environment NODE_ENV:development",
+    "watch": "rollup -cw",
+    "test:e2e": "vue-cli-service test:e2e",
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "core-js": "^3.18.0",
+    "vue": "^2.6.14",
+    "vue-class-component": "^7.2.6",
+    "vue-debounce-decorator": "^1.0.1",
+    "vue-highlight-words": "^1.2.0",
+    "vue-property-decorator": "^8.5.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.11",
+    "@typescript-eslint/eslint-plugin": "^4.31.2",
+    "@typescript-eslint/parser": "^4.31.2",
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-plugin-e2e-cypress": "^4.5.13",
+    "@vue/cli-plugin-eslint": "^4.5.13",
+    "@vue/cli-plugin-typescript": "^4.5.13",
+    "@vue/cli-plugin-unit-jest": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "@vue/test-utils": "^1.2.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^7.18.0",
+    "prettier": "^2.4.1",
+    "rollup": "^1.32.1",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-livereload": "^1.0.4",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-serve": "^1.0.1",
+    "rollup-plugin-terser": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.24.3",
+    "rollup-plugin-vue": "^5.1.1",
+    "rollup-watch": "^4.3.1",
+    "sass": "^1.42.1",
+    "sass-loader": "^8.0.2",
+    "typescript": "^3.9.10",
+    "vue-template-compiler": "^2.6.14"
   }
 }

@@ -88,7 +88,7 @@ export default class VueDadata extends Vue {
   public readonly defaultClass?: string;
   @Prop({ type: String, default: '' }) public readonly classes?: string;
   @Prop(Function) public readonly onChange?: (
-    suggestion: DadataSuggestion,
+    suggestion: DadataSuggestion | null,
   ) => void;
   @Prop(Function) public readonly validate?: (value: string) => void;
   @Prop({type: Boolean, default: false}) public readonly autoSelectOnEnter?: boolean;
@@ -137,12 +137,20 @@ export default class VueDadata extends Vue {
       this.inputQuery = this.suggestions[index].value;
       this.suggestionsVisible = false;
       await this.$nextTick();
-      await this.fetchSuggestions();
 
       if (this.onChange) {
-        this.onChange(this.suggestions[index]);
+        const suggestions = await this.fetchSuggestions(1);
+        let suggestion: DadataSuggestion | null = null;
+
+        if (suggestions.length > 0) {
+          suggestion = suggestions[0];
+        }
+
+        this.onChange(suggestion);
       }
+
       this.suggestionIndex = -1;
+      this.suggestions.length = 0;
     }
   }
 
@@ -169,21 +177,16 @@ export default class VueDadata extends Vue {
     } else if (event.which === ENTER) {
       event.preventDefault();
       if (this.suggestionIndex >= 0) {
-        this.selectSuggestion(this.suggestionIndex);
-      } else if(this.autoSelectOnEnter && this.suggestions.length > 0){
-        this.selectSuggestion(0);
+        await this.selectSuggestion(this.suggestionIndex);
       }
     }
   }
 
   public async onSuggestionClick(index: number) {
-    if (this.suggestions.length >= index - 1) {
-      this.inputQuery = this.suggestions[index].value;
-      this.suggestions = await this.fetchSuggestions();
-    }
+    await this.selectSuggestion(index);
   }
 
-  private async fetchSuggestions(): Promise<DadataSuggestion[]> {
+  private async fetchSuggestions(count?: number): Promise<DadataSuggestion[]> {
     try {
       const request = {
         token: this.token,
@@ -192,6 +195,7 @@ export default class VueDadata extends Vue {
         toBound: this.toBound,
         fromBound: this.fromBound,
         locationOptions: this.locationOptions,
+        count,
       };
 
       const suggestions = await getSuggestions(request);
