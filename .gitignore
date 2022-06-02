@@ -1,9 +1,6 @@
 .DS_Store
-node_modules
-/dist
-
-/tests/e2e/videos/
-/tests/e2e/screenshots/
+node_modules/
+/dist/
 
 # local env files
 .env
@@ -22,4 +19,4 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+*.sw*

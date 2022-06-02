@@ -2,6 +2,10 @@
 
 [Link to RU changelog](https://github.com/ikloster03/vue-dadata/tree/master/ru/CHANGELOG.md)
 
+## v2.0.0-beta.1 - June 06, 2020
+
+Rewrite release for vue2
+
 ## v1.4.6 - June 06, 2020
 
 Add ci/cd 
