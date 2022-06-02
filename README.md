@@ -104,4 +104,4 @@ If you have found a bug or if you have a feature request, please report them at 
 
 ## [LICENSE](https://github.com/ikloster03/vue-dadata/blob/master/LICENSE)
 
-Copyright (c) 2019 Ivan Monastyrev <ikloster@yandex.ru>. Licensed under the [MIT license](https://github.com/ikloster03/vue-dadata/blob/master/LICENSE).
+Copyright (c) 2019 - 2022 Ivan Monastyrev <ikloster@yandex.ru>. Licensed under the [MIT license](https://github.com/ikloster03/vue-dadata/blob/master/LICENSE).
