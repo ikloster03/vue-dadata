@@ -1,6 +1,6 @@
 {
   "name": "vue-dadata",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "Vue component for hinting addresses using dadata.ru",
   "main": "dist/vue-dadata.ssr.js",
   "browser": "dist/vue-dadata.esm.js",
