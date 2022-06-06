@@ -1,5 +1,10 @@
 # Vue Dadata
 
+[![npm version](https://badge.fury.io/js/vue-dadata.svg)](https://badge.fury.io/js/vue-dadata)
+[![npm downloads](https://img.shields.io/npm/dw/vue-dadata)](https://badge.fury.io/js/vue-dadata)
+[![NPM license](https://img.shields.io/npm/l/vue-dadata)](https://github.com/ikloster03/vue-dadata/blob/main/LICENSE)
+[![npm type definitions](https://img.shields.io/npm/types/vue-dadata)](https://github.com/ikloster03/vue-dadata)
+
 [comment]: <> (![Publish]&#40;https://github.com/ikloster03/vue-dadata/workflows/Publish/badge.svg&#41;)
 
 It's a vue component for hinting addresses using [DaData.ru](https://dadata.ru).
@@ -28,16 +33,6 @@ $ yarn add vue-dadata@3
 ```
 
 ## Usage
-
-### Global
-
-```js
-import VueDadata from 'vue-dadata'
-
-Vue.use(VueDadata)
-```
-
-### Local
 
 ```html
 <template>
@@ -95,11 +90,5 @@ Vue.use(VueDadata)
 - [axios](https://github.com/axios/axios)
 - [vue-debounce](https://github.com/dhershman1/vue-debounce)
 - [vue-word-highlighter](https://github.com/kawamataryo/vue-word-highlighter)
-
-## [CHANGELOG](https://github.com/ikloster03/vue-dadata/blob/master/CHANGELOG.md)
-
-## [CONTRIBUTING](https://github.com/ikloster03/vue-dadata/blob/master/CONTRIBUTING.md)
-
-## [LICENSE](https://github.com/ikloster03/vue-dadata/blob/master/LICENSE)
 
 Copyright (c) 2019 - 2022 Ivan Monastyrev <ikloster@yandex.ru>. Licensed under the [MIT license](https://github.com/ikloster03/vue-dadata/blob/master/LICENSE).
