@@ -19,6 +19,7 @@
     "src/**/*.vue"
   ],
   "main": "./dist/vue-dadata.umd.js",
+  "typings": "./dist/src/index.d.ts",
   "browser": "./dist/vue-dadata.esm.js",
   "module": "./dist/vue-dadata.esm.js",
   "unpkg": "./dist/vue-dadata.umd.js",
