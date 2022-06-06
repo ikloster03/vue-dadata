@@ -85,7 +85,7 @@ export default defineComponent({
       default: undefined,
     },
     debounceWait: {
-      type: Number || String,
+      type: String || Number,
       default: '1000ms',
     },
     disabled: {
@@ -212,9 +212,6 @@ export default defineComponent({
     const limitDown = computed(() => suggestionIndex.value >= 0);
 
     const onKeyPress = (keyboardEvent: KeyboardEvent, keyEvent: KeyEvent) => {
-      console.log('keyboardEvent', keyboardEvent);
-      console.log('keyEvent', keyEvent);
-      console.log('suggestionIndex.value', suggestionIndex.value);
       if (props.disabled) {
         return;
       }
@@ -233,21 +230,16 @@ export default defineComponent({
       }
 
       if (keyEvent === KeyEvent.Up) {
-        console.log('limitDown.value', limitDown.value);
         if (limitDown.value) {
           suggestionIndex.value -= 1;
-          // selectSuggestion(suggestionIndex.value);
         }
       }
 
       if (keyEvent === KeyEvent.Down) {
-        console.log('limitUp.value', limitUp.value);
         if (limitUp.value) {
           suggestionIndex.value += 1;
-          // selectSuggestion(suggestionIndex.value);
         }
       }
-      console.log('----suggestionIndex', suggestionIndex.value);
     };
 
     const onInputFocus = () => {
