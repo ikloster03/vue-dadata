@@ -1,6 +1,6 @@
 # Vue Dadata
 
-![Publish](https://github.com/ikloster03/vue-dadata/workflows/Publish/badge.svg)
+[comment]: <> (![Publish]&#40;https://github.com/ikloster03/vue-dadata/workflows/Publish/badge.svg&#41;)
 
 It's a vue component for hinting addresses using [DaData.ru](https://dadata.ru).
 
@@ -50,7 +50,7 @@ Vue.use(VueDadata)
 
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
-  import VueDadata from '../src/VueDadata.vue';
+  import { VueDadata } from 'vue-dadata';
 
   export default defineComponent({
     name: 'VueTruncateHtmlExample',
@@ -84,8 +84,8 @@ Vue.use(VueDadata)
 | toBound  | No  |  string  |  Dadata bound type TO | undefined |
 | inputName  | No  |  string  |  Input name attribute | 'vue-dadata-input' |
 | locationOptions  | No  |  object  |  Location options for choosing cities or countries | undefined |
-| classes  | No  |  object  |  classes | DEFAULT_CLASSES |
-| highlightOptions  | No  |  object  |  highlight options for [vue-word-highlighter](https://github.com/kawamataryo/vue-word-highlighter) | DEFAULT_HIGHLIGHT_OPTIONS |
+| classes  | No  |  object  |  classes | [DEFAULT_CLASSES](https://github.com/ikloster03/vue-dadata/blob/master/src/const/classes.const.ts) |
+| highlightOptions  | No  |  object  |  highlight options for [vue-word-highlighter](https://github.com/kawamataryo/vue-word-highlighter) | [DEFAULT_HIGHLIGHT_OPTIONS](https://github.com/ikloster03/vue-dadata/blob/master/src/const/highlight-options.const.ts) |
 
 
 ## Peer dependencies
