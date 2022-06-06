@@ -1,21 +1,7 @@
-import LocationOptions from '@/types/LocationOptions';
+import { DadataAddress } from './address.types';
 
 export interface Suggestion {
-  token: string;
-  query: string;
-  url?: string;
-  count?: number;
-  toBound?: string;
-  fromBound?: string;
-  locationOptions: LocationOptions;
-}
-
-export interface SuggestionPayload {
-  query: string;
-  count?: number;
-  to_bound?: object;
-  from_bound?: object;
-  language: string;
-  locations: Array<object>;
-  locations_boost: object;
+  value: string;
+  unrestricted_value: string;
+  data: DadataAddress;
 }

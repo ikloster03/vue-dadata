@@ -1,273 +1,296 @@
 <template>
-  <div :class="[defaultClass, ...getClasses()]">
-    <div :class="`${defaultClass}__container`">
-      <div :class="`${defaultClass}__search`">
-        <input
-          type="text"
-          :name="inputName"
-          :class="`${defaultClass}__input`"
-          :disabled="disabled"
-          :placeholder="placeholder"
-          v-model="inputQuery"
-          ref="inputText"
-          :auto-complete="autocomplete"
-          @input="onInputChange"
-          @keydown="onKeyPress"
-          @focus="onInputFocus"
-          @blur="onInputBlur"
-        />
-      </div>
-      <div
-        v-if="inputFocused && suggestionsVisible"
-        :class="`${defaultClass}__suggestions`"
-      >
-        <highlighter
-          v-for="(suggestion, index) in suggestions"
+  <div :class="proxyClasses.container">
+    <div :class="proxyClasses.search">
+      <input
+        v-model="query"
+        type="text"
+        :name="inputName"
+        :class="proxyClasses.input"
+        :disabled="disabled"
+        :placeholder="placeholder"
+        @input="onInputChange"
+        @keyup.enter="onKeyPress($event, KeyEvent.Enter)"
+        @keyup.esc="onKeyPress($event, KeyEvent.Esc)"
+        @keyup.up="onKeyPress($event, KeyEvent.Up)"
+        @keyup.down="onKeyPress($event, KeyEvent.Down)"
+        @focus="onInputFocus"
+        @blur="onInputBlur">
+    </div>
+    <div
+      v-if="inputFocused && suggestionsVisible && !disabled"
+      :class="proxyClasses.suggestions">
+      <slot
+        name="suggestions"
+        :suggestion-list="suggestionList"
+        :suggestion-index="suggestionIndex"
+        :query="query">
+        <word-highlighter
+          v-for="(suggestion, index) in suggestionList"
           :key="`suggestion_${index}`"
-          @mousedown="onSuggestionClick(index)"
-          :class="[
-            `${defaultClass}__suggestions-item`,
-            {
-              [`${defaultClass}__suggestions-item_current`]:
-                index === suggestionIndex,
-            },
-          ]"
-          :search-words="inputQuery.split(' ')"
-          :auto-escape="true"
+          v-bind="proxyHighlightOptions"
+          :wrapper-class="proxyClasses.suggestionItem"
+          :class="index === suggestionIndex ? proxyClasses.suggestionCurrentItem : ''"
+          :query="query"
           :text-to-highlight="suggestion.value"
-          :highlight-class-name="highlightClassName"
-          :unhighlight-class-name="unhighlightClassName"
-          :highlight-tag="highlightTag"
-        />
-      </div>
+          @mousedown="onSuggestionClick(index)" />
+      </slot>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Highlighter from 'vue-highlight-words';
-import DadataSuggestion from '@/types/DadataSuggestion';
-import getSuggestions from '@/api/getSuggestions';
+import {
+  computed,
+  ComputedRef,
+  defineComponent,
+  PropType,
+  Ref,
+  ref,
+  watch,
+} from 'vue';
+import WordHighlighter from 'vue-word-highlighter';
+import { debounce } from 'vue-debounce';
+import {
+  BoundsType,
+  Suggestion,
+  LocationOptions,
+  SuggestionDto,
+  VueDadataClasses,
+  KeyEvent,
+  HighlightOptions,
+} from './types';
+import { getSuggestions } from './api';
+import { DEFAULT_CLASSES, DEFAULT_HIGHLIGHT_OPTIONS } from './const';
 
-interface VueDadataData {
-  inputQuery: string;
-  inputFocused: boolean;
-  suggestions: DadataSuggestion[];
-  suggestionIndex: number;
-  suggestionsVisible: boolean;
-
-}
-
-export default /*#__PURE__*/Vue.extend({
-  name: 'VueDadata', // vue component name
+export default defineComponent({
+  name: 'VueDadata',
   components: {
-    Highlighter
+    WordHighlighter,
   },
   props: {
     token: {
       type: String,
       required: true,
     },
-    query: {
+    modelValue: {
       type: String,
-      default: ''
+      required: true,
     },
     placeholder: {
       type: String,
-      default: ''
-    },
-    autoload: {
-      type: String,
-      default: false
-    },
-    autocomplete: {
-      type: String,
-      default: ''
+      default: '',
     },
     url: {
       type: String,
-      default: ''
+      default: undefined,
+    },
+    debounceWait: {
+      type: Number || String,
+      default: '1000ms',
     },
     disabled: {
-      type: String,
-      default: false
+      type: Boolean,
+      default: false,
     },
     fromBound: {
-      type: String,
-      default: ''
+      type: String as PropType<BoundsType>,
+      default: undefined,
     },
     toBound: {
-      type: String,
-      default: ''
+      type: String as PropType<BoundsType>,
+      default: undefined,
     },
     inputName: {
       type: String,
-      default: ''
+      default: 'vue-dadata-input',
     },
     locationOptions: {
-      type: Object,
-      // default: false
-    },
-    highlightClassName: {
-      type: String,
-      default: ''
-    },
-    unhighlightClassName: {
-      type: String,
-      default: ''
-    },
-    highlightTag: {
-      type: String,
-      default: 'mark'
-    },
-    defaultClass: {
-      type: String,
-      default: 'vue-dadata'
+      type: Object as PropType<LocationOptions> | undefined,
+      default: undefined,
     },
     classes: {
-      type: String,
-      default: ''
+      type: Object as PropType<VueDadataClasses>,
+      default: () => DEFAULT_CLASSES,
     },
-    onChange: {
-      type: Function,
-      // default: ''
+    highlightOptions: {
+      type: Object as PropType<HighlightOptions>,
+      default: () => DEFAULT_HIGHLIGHT_OPTIONS,
     },
   },
-  data(): VueDadataData {
-    const suggestions: DadataSuggestion[] = [];
+  emits: ['update:modelValue', 'handleError'],
+  setup(props, { emit }) {
+    const query = computed({
+      get: () => props.modelValue,
+      set: (value) => emit('update:modelValue', value),
+    });
 
-    return {
-      inputQuery: '',
-      inputFocused: false,
-      suggestions,
-      suggestionIndex: -1,
-      suggestionsVisible: true,
-    };
-  },
-  async created() {
-    this.inputQuery = this.query ? this.query : '';
+    const inputFocused = ref(false);
+    const suggestionsVisible = ref(true);
+    const suggestionIndex = ref(-1);
+    const suggestionList: Ref<Suggestion[]> = ref([]);
 
-    if (this.autoload && this.query) {
-      this.suggestions = await this.fetchSuggestions();
-    }
-  },
-  computed: {
-    // changedBy() {
-    //   const { message } = this as SampleData;
-    //   if (!message.action) return 'initialized';
-    //   return `${message.action} ${message.amount || ''}`.trim();
-    // },
-  },
-  methods: {
-    getClasses(): string[] {
-      return this.classes ? this.classes.split(' ') : [];
-    },
+    const proxyClasses: ComputedRef<VueDadataClasses> = computed(() => ({
+      container: props.classes?.container ?? DEFAULT_CLASSES.container,
+      search: props.classes?.search ?? DEFAULT_CLASSES.search,
+      input: props.classes?.input ?? DEFAULT_CLASSES.input,
+      suggestions: props.classes?.suggestions ?? DEFAULT_CLASSES.suggestions,
+      suggestionItem: props.classes?.suggestionItem ?? DEFAULT_CLASSES.suggestionItem,
+      suggestionCurrentItem: props.classes?.suggestionCurrentItem ?? DEFAULT_CLASSES.suggestionCurrentItem,
+    }));
 
-    onInputFocus() {
-      this.inputFocused = true;
-    },
+    const proxyHighlightOptions: ComputedRef<HighlightOptions> = computed(() => ({
+      caseSensitive: props.highlightOptions?.caseSensitive ?? DEFAULT_HIGHLIGHT_OPTIONS.caseSensitive,
+      splitBySpace: props.highlightOptions?.splitBySpace ?? DEFAULT_HIGHLIGHT_OPTIONS.splitBySpace,
+      highlightTag: props.highlightOptions?.highlightTag ?? DEFAULT_HIGHLIGHT_OPTIONS.highlightTag,
+      highlightClass: props.highlightOptions?.highlightClass ?? DEFAULT_HIGHLIGHT_OPTIONS.highlightClass,
+      highlightStyle: props.highlightOptions?.highlightStyle ?? DEFAULT_HIGHLIGHT_OPTIONS.highlightStyle,
+      wrapperTag: props.highlightOptions?.wrapperTag ?? DEFAULT_HIGHLIGHT_OPTIONS.wrapperTag,
+      wrapperClass: props.highlightOptions?.wrapperClass ?? DEFAULT_HIGHLIGHT_OPTIONS.wrapperClass,
+    }));
 
-    onInputBlur() {
-      this.inputFocused = false;
-    },
-
-    async onInputChange(event: Event) {
-      const value: string = (event.target as HTMLInputElement).value;
-      this.inputQuery = value;
-      this.suggestionsVisible = true;
-      this.suggestions = await this.fetchSuggestions();
-    },
-
-    async selectSuggestion(index: number) {
-      if (this.suggestions.length >= index - 1) {
-        this.inputQuery = this.suggestions[index].value;
-        this.suggestionsVisible = false;
-        await this.$nextTick();
-
-        if (this.onChange) {
-          const suggestions = await this.fetchSuggestions(1);
-          let suggestion: DadataSuggestion | null = null;
-
-          if (suggestions.length > 0) {
-            suggestion = suggestions[0];
-          }
-
-          this.onChange(suggestion);
-        }
-
-        this.suggestionIndex = -1;
-        this.suggestions.length = 0;
-      }
-    },
-
-    async onKeyPress(event: KeyboardEvent) {
-      const ARROW_DOWN = 40;
-      const ARROW_UP = 38;
-      const ENTER = 13;
-
-      if (event.which === ARROW_DOWN && this.suggestionsVisible) {
-        event.preventDefault();
-        if (this.suggestionIndex < this.suggestions.length - 1) {
-          this.suggestionIndex = this.suggestionIndex + 1;
-          this.inputQuery = this.suggestions[this.suggestionIndex].value;
-        }
-      } else if (event.which === ARROW_UP && this.suggestionsVisible) {
-        event.preventDefault();
-        if (this.suggestionIndex >= 0) {
-          this.suggestionIndex = this.suggestionIndex - 1;
-          this.inputQuery =
-            this.suggestionIndex === -1
-              ? this.inputQuery
-              : this.suggestions[this.suggestionIndex].value;
-        }
-      } else if (event.which === ENTER) {
-        event.preventDefault();
-        if (this.suggestionIndex >= 0) {
-          await this.selectSuggestion(this.suggestionIndex);
-        }
-      }
-    },
-
-    async onSuggestionClick(index: number) {
-      await this.selectSuggestion(index);
-    },
-
-    async fetchSuggestions(count?: number): Promise<DadataSuggestion[]> {
+    const fetchSuggestions = async (count?: number): Promise<Suggestion[]> => {
       try {
-        const request = {
-          token: this.token,
-          query: this.inputQuery,
-          url: this.url,
-          toBound: this.toBound,
-          fromBound: this.fromBound,
-          locationOptions: this.locationOptions,
+        const request: SuggestionDto = {
+          token: props.token,
+          query: query.value,
+          url: props.url,
+          toBound: props.toBound,
+          fromBound: props.fromBound,
+          locationOptions: props.locationOptions,
           count,
         };
 
         return getSuggestions(request);
       } catch (error) {
-        this.$emit('handleError', error);
-        return [];
+        emit('handleError', error);
+
+        return new Promise<Suggestion[]>((resolve) => {
+          resolve([]);
+        });
       }
-    },
-    // increment(arg: Event | number): void {
-    //   const amount = (typeof arg !== 'number') ? 1 : arg;
-    //   this.counter += amount;
-    //   this.message.action = 'incremented by';
-    //   this.message.amount = amount;
-    // },
-    // decrement(arg: Event | number): void {
-    //   const amount = (typeof arg !== 'number') ? 1 : arg;
-    //   this.counter -= amount;
-    //   this.message.action = 'decremented by';
-    //   this.message.amount = amount;
-    // },
-    // reset(): void {
-    //   this.counter = this.initCounter;
-    //   this.message.action = 'reset';
-    //   this.message.amount = null;
-    // },
+    };
+
+    const fetchWithDebounce = debounce(async () => {
+      suggestionList.value = await fetchSuggestions();
+    }, props.debounceWait);
+
+    watch(query, async () => {
+      fetchWithDebounce();
+    });
+
+    const resetSuggestions = () => {
+      if (props.disabled) {
+        return;
+      }
+
+      suggestionsVisible.value = false;
+      suggestionIndex.value = -1;
+      suggestionList.value = [];
+    };
+
+    const selectSuggestion = (index: number) => {
+      if (props.disabled) {
+        return;
+      }
+
+      if (suggestionList.value.length >= index - 1) {
+        query.value = suggestionList.value[index].value;
+      }
+    };
+
+    const onInputChange = () => {
+      if (props.disabled) {
+        return;
+      }
+
+      suggestionsVisible.value = true;
+    };
+
+    const withinTheBoundaries = computed(() => suggestionIndex.value >= 0 && suggestionIndex.value < suggestionList.value.length - 1);
+
+    const limitUp = computed(() => suggestionIndex.value < suggestionList.value.length - 1);
+    const limitDown = computed(() => suggestionIndex.value >= 0);
+
+    const onKeyPress = (keyboardEvent: KeyboardEvent, keyEvent: KeyEvent) => {
+      console.log('keyboardEvent', keyboardEvent);
+      console.log('keyEvent', keyEvent);
+      console.log('suggestionIndex.value', suggestionIndex.value);
+      if (props.disabled) {
+        return;
+      }
+
+      keyboardEvent.preventDefault();
+
+      if (keyEvent === KeyEvent.Enter) {
+        if (withinTheBoundaries.value) {
+          selectSuggestion(suggestionIndex.value);
+          resetSuggestions();
+        }
+      }
+
+      if (keyEvent === KeyEvent.Esc) {
+        suggestionsVisible.value = false;
+      }
+
+      if (keyEvent === KeyEvent.Up) {
+        console.log('limitDown.value', limitDown.value);
+        if (limitDown.value) {
+          suggestionIndex.value -= 1;
+          // selectSuggestion(suggestionIndex.value);
+        }
+      }
+
+      if (keyEvent === KeyEvent.Down) {
+        console.log('limitUp.value', limitUp.value);
+        if (limitUp.value) {
+          suggestionIndex.value += 1;
+          // selectSuggestion(suggestionIndex.value);
+        }
+      }
+      console.log('----suggestionIndex', suggestionIndex.value);
+    };
+
+    const onInputFocus = () => {
+      if (props.disabled) {
+        return;
+      }
+
+      inputFocused.value = true;
+    };
+
+    const onInputBlur = () => {
+      if (props.disabled) {
+        return;
+      }
+
+      inputFocused.value = false;
+    };
+
+    const onSuggestionClick = (index: number) => {
+      if (props.disabled) {
+        return;
+      }
+
+      selectSuggestion(index);
+      resetSuggestions();
+    };
+
+    return {
+      KeyEvent,
+      query,
+      inputFocused,
+      suggestionsVisible,
+      suggestionList,
+      proxyClasses,
+      proxyHighlightOptions,
+      suggestionIndex,
+
+      onInputChange,
+      onKeyPress,
+      onInputFocus,
+      onInputBlur,
+      onSuggestionClick,
+    };
   },
 });
 </script>
