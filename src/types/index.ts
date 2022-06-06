@@ -1,4 +1,3 @@
-export * from './suggestion';
 export * from './address.types';
 export * from './suggestion.dto';
 export * from './location-options.types';

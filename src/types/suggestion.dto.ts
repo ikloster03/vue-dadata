@@ -1,5 +1,5 @@
 import { LocationOptions } from './location-options.types';
-import { BoundsType } from './address.types';
+import { BoundsType, DadataAddress } from './address.types';
 
 export interface SuggestionDto {
   token: string;
@@ -19,4 +19,10 @@ export interface SuggestionPayload {
   language?: string;
   locations?: object[];
   locations_boost?: object;
+}
+
+export interface Suggestion {
+  value: string;
+  unrestricted_value: string;
+  data: DadataAddress;
 }

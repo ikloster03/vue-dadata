@@ -52,12 +52,12 @@ import WordHighlighter from 'vue-word-highlighter';
 import { debounce } from 'vue-debounce';
 import {
   BoundsType,
-  Suggestion,
   LocationOptions,
   SuggestionDto,
   VueDadataClasses,
   KeyEvent,
   HighlightOptions,
+  Suggestion,
 } from './types';
 import { getSuggestions } from './api';
 import { DEFAULT_CLASSES, DEFAULT_HIGHLIGHT_OPTIONS } from './const';
