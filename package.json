@@ -26,11 +26,12 @@
     ".": {
       "import": "./dist/vue-dadata.es.js",
       "require": "./dist/vue-dadata.umd.js"
-    }
+    },
+    "./*": "./*"
   },
   "jsdelivr": "./dist/vue-dadata.umd.js",
   "scripts": {
-    "dev:docs": "vitepress dev docs",
+    "dev:docs": "vitepress dev docs --port=8081",
     "build:docs": "vitepress build docs",
     "serve:docs": "vitepress serve docs",
     "build": "vite build",
