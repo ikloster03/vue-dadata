@@ -288,7 +288,7 @@ export default defineComponent({
 </script>
 
 <style>
-.vue-dadata__container {
+.vue-dadata {
   width: 100%;
   position: relative;
 }
