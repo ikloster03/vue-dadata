@@ -1,6 +1,6 @@
 {
   "name": "vue-dadata",
-  "version": "3.0.0-beta.6",
+  "version": "3.0.0-beta.7",
   "description": "Vue component for hinting addresses using dadata.ru",
   "repository": "https://github.com/ikloster03/vue-dadata",
   "keywords": [
