@@ -1,0 +1,48 @@
+.vue-dadata {
+  width: 100%;
+  position: relative;
+}
+
+.vue-dadata__input {
+  font-size: 14px;
+  width: 100%;
+  height: 47px;
+  outline: none;
+  border-radius: 4px;
+  border: 1px solid #f1c40f;
+  transition: 0.3s;
+  box-sizing: border-box;
+  padding: 0 5px;
+}
+
+.vue-dadata__input:focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+  0 0 0 3px rgba(255, 154, 0, 0.1);
+  border-color: #ff931e;
+}
+
+.vue-dadata__suggestions {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.vue-dadata__suggestions-item {
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.vue-dadata__suggestions-item-highlight {
+  background-color: #ffdfbd;
+}
+
+.vue-dadata__suggestions-item:hover {
+  background-color: #ffdfbd;
+}
+
+.vue-dadata__suggestions-item_current {
+  background-color: #fff5e7;
+}
