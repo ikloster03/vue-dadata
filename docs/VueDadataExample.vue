@@ -2,13 +2,16 @@
   <div class="vue-truncate-html-example">
     <vue-dadata
       v-model="query"
-      :token="token" />
+      v-model:suggestion="suggestion"
+      :token="token"
+      :autocomplete="true" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import VueDadata from '../src/VueDadata.vue';
+import '../src/index.css';
 
 export default defineComponent({
   name: 'VueTruncateHtmlExample',
@@ -17,11 +20,12 @@ export default defineComponent({
   },
   setup() {
     const query = ref('');
+    const suggestion = ref(undefined);
 
     return {
-      token: import.meta.env.VITE_APP_DADATA_API_KEY,
+      token: import.meta.env.VITE_APP_DADATA_API_KEY as string,
       query,
-
+      suggestion,
     };
   },
 });
