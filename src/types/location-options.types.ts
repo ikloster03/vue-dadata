@@ -1,5 +1,5 @@
 export interface LocationOptions {
-  language: string;
+  language?: string;
   locations: object[];
-  locationsBoost: object[];
+  locationsBoost?: object[];
 }
