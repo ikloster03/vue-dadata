@@ -37,6 +37,7 @@ const useSuggestions = (
   const suggestionsVisible = ref(true);
   const suggestionIndex = ref(-1);
   const suggestionList: Ref<Suggestion[]> = ref([]);
+  const suggestionItem: Ref<Suggestion | undefined> = ref(undefined);
 
   const fetchSuggestions = async (count?: number): Promise<Suggestion[]> => {
     try {
@@ -84,6 +85,7 @@ const useSuggestions = (
 
     if (suggestionList.value.length >= index - 1) {
       queryProxy.value = suggestionList.value[index].value;
+      suggestionItem.value = suggestionList.value[index];
       suggestionProxy.value = suggestionList.value[index];
     }
   };
@@ -145,7 +147,7 @@ const useSuggestions = (
     }
 
     if (props.autocomplete) {
-      queryProxy.value = suggestionProxy.value ? suggestionProxy.value?.value : '';
+      queryProxy.value = suggestionItem.value ? suggestionItem.value?.value : '';
     }
 
     inputFocused.value = false;
