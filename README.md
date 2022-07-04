@@ -9,27 +9,23 @@
 
 It's a vue component for hinting addresses using [DaData.ru](https://dadata.ru).
 
-| Version  | Description |
-| ------------- | ------------- |
-| 1.\*.\*  | Old version for vue2 |
-| 2.\*.\*  | New version for vue2 |
-| 3.\*.\*  | New version for vue3 |
+| Version   | Description          |
+|-----------|----------------------|
+| 1.\*.\*   | Old version for vue2 |
+| 2.\*.\*   | New version for vue2 |
+| 3.\*.\*   | New version for vue3 |
 
 ## Install
 
 [npm package](https://www.npmjs.com/package/vue-dadata)
 
 ```bash
+# old version vue2
+$ npm install vue-dadata@1.4.12 --save
+# new version vue2 (in progress)
+$ npm install vue-dadata@2.0.0-beta.2 --save
+# vue3 (in progress)
 $ npm install vue-dadata --save
-$ npm install vue-dadata@2 --save
-$ npm install vue-dadata@3 --save
-```
-
-[yarn package](https://yarnpkg.com/en/package/vue-dadata)
-```bash
-$ yarn add vue-dadata
-$ yarn add vue-dadata@2
-$ yarn add vue-dadata@3
 ```
 
 ## Usage
