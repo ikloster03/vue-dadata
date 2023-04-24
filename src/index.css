@@ -17,8 +17,8 @@
 
 .vue-dadata__input:focus {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-  0 0 0 3px rgba(255, 154, 0, 0.1);
-  border-color: #ff931e;
+    0 0 0 3px rgba(255, 154, 0, 0.1);
+  border-color: #cf6e06;
 }
 
 .vue-dadata__suggestions {
@@ -35,14 +35,15 @@
   cursor: pointer;
   transition: 0.3s;
 }
+
 .vue-dadata__suggestions-item-highlight {
-  background-color: #ffdfbd;
+  background-color: #cf6e06;
 }
 
 .vue-dadata__suggestions-item:hover {
-  background-color: #ffdfbd;
+  background-color: #cf6e06;
 }
 
 .vue-dadata__suggestions-item_current {
-  background-color: #fff5e7;
+  background-color: #cf6e06;
 }
