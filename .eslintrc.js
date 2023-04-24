@@ -11,34 +11,36 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    'vue/setup-compiler-macros': true,
-    jest: true,
-    node: true,
   },
   extends: [
     'plugin:vue/vue3-recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
     'airbnb-base',
     '@vue/typescript/recommended',
+
   ],
   parser: 'vue-eslint-parser',
   parserOptions: {
-    ecmaFeatures: { impliedStrict: true },
-    ecmaVersion: 2021,
-    parser: '@typescript-eslint/parser',
+    project: './tsconfig.json',
     sourceType: 'module',
-    vueFeatures: {
-      filter: false,
-      interpolationAsNonHTML: true,
+    parser: {
+      ts: '@typescript-eslint/parser',
+    },
+    ecmaVersion: 2018,
+    ecmaFeatures: {
+      globalReturn: false,
+      impliedStrict: false,
+      jsx: false,
     },
   },
-  plugins: [
-    'vue',
-  ],
   rules: {
     'no-param-reassign': 'off',
-    'no-unused-vars': 'warn',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
     'consistent-return': 'off',
     'no-underscore-dangle': 'off',
+    'vue/define-emits-declaration': ['error', 'type-based'],
     'vue/html-closing-bracket-newline': ['error', {
       singleline: 'never',
       multiline: 'never',
@@ -63,6 +65,8 @@ module.exports = {
         '': 'never',
       },
     ],
+    'no-useless-constructor': 'off',
+    'class-methods-use-this': 'off',
   },
   settings: {
     'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
@@ -70,6 +74,7 @@ module.exports = {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
     'import/resolver': {
+      typescript: true,
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
