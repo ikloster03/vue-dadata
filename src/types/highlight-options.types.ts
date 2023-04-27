@@ -2,8 +2,8 @@ export interface HighlightOptions{
   caseSensitive?: boolean;
   splitBySpace?: boolean;
   highlightTag?: string;
-  highlightClass?: string | object | Array<never>;
-  highlightStyle?: string | object | Array<never>;
+  highlightClass?: string | Record<string, boolean> | string[];
+  highlightStyle?: string | Record<string, boolean> | string[];
   wrapperTag?: string;
-  wrapperClass?: string | object | Array<never>;
+  wrapperClass?: string | object | string[];
 }
