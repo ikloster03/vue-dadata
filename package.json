@@ -1,6 +1,6 @@
 {
   "name": "vue-dadata",
-  "version": "3.0.0-beta.11",
+  "version": "3.0.0-beta.12",
   "description": "Vue component for hinting addresses using dadata.ru",
   "keywords": [
     "vue",
@@ -25,7 +25,7 @@
   "unpkg": "dist/vue-dadata.iife.js",
   "jsdelivr": "dist/vue-dadata.iife.js",
   "module": "dist/vue-dadata.es.js",
-  "typings": "./dist/src/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "files": [
     "dist/*",
     "src/**/*.vue"
