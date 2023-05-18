@@ -1,6 +1,6 @@
 {
   "name": "vue-dadata",
-  "version": "3.0.0-beta.10",
+  "version": "3.0.0-beta.11",
   "description": "Vue component for hinting addresses using dadata.ru",
   "keywords": [
     "vue",
@@ -21,11 +21,10 @@
     },
     "./*": "./*"
   },
-  "main": "./dist/vue-dadata.umd.js",
-  "jsdelivr": "./dist/vue-dadata.umd.js",
-  "unpkg": "./dist/vue-dadata.umd.js",
-  "module": "./dist/vue-dadata.esm.js",
-  "browser": "./dist/vue-dadata.esm.js",
+  "main": "dist/vue-dadata.cjs.js",
+  "unpkg": "dist/vue-dadata.iife.js",
+  "jsdelivr": "dist/vue-dadata.iife.js",
+  "module": "dist/vue-dadata.es.js",
   "typings": "./dist/src/index.d.ts",
   "files": [
     "dist/*",
@@ -68,6 +67,7 @@
     "eslint-plugin-simple-import-sort": "10.0.0",
     "eslint-plugin-vue": "9.11.0",
     "happy-dom": "8.9.0",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-visualizer": "^5.5.4",
     "typescript": "5.0.4",
     "vite": "4.3.1",
