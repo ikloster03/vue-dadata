@@ -19,6 +19,7 @@ export interface SuggestionPayload {
   language?: string;
   locations?: object[];
   locations_boost?: object;
+  restrict_value?: boolean;
 }
 
 export interface Suggestion {
