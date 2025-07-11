@@ -9,7 +9,7 @@ export default defineConfig({
     environment: 'happy-dom',
     coverage: {
       // provider: 'istanbul',
-      provider: 'c8',
+      provider: 'v8',
       reporter: ['text', 'json', 'html'],
     },
     include: ['./src/**/*.test.ts']
