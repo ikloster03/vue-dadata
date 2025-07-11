@@ -38,6 +38,13 @@ export const getSuggestions = async (suggestion: SuggestionDto): Promise<Suggest
       locations: suggestion.locationOptions.locations,
       locations_boost: suggestion.locationOptions.locationsBoost,
     };
+
+    if (suggestion.locationOptions.restrictValue !== undefined) {
+      payload = {
+        ...payload,
+        restrict_value: suggestion.locationOptions.restrictValue,
+      };
+    }
   }
 
   const config = {
