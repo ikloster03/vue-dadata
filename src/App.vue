@@ -5,7 +5,8 @@
       v-model:suggestion="suggestion"
       :highlight-options="highlightOptions"
       :token="token"
-      :autocomplete="true" />
+      :autocomplete="true"
+      placeholder="Введите адрес"/>
   </div>
 </template>
 
@@ -29,7 +30,7 @@ export default defineComponent({
     };
 
     return {
-      token: import.meta.env.VITE_APP_DADATA_API_KEY as string,
+      token: import.meta.env.VITE_APP_DADATA_API_KEY,
       query,
       suggestion,
       highlightOptions,
