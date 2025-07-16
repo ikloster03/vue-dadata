@@ -5,7 +5,8 @@
       v-model:suggestion="suggestion"
       :highlight-options="highlightOptions"
       :token="token"
-      :autocomplete="true" />
+      :autocomplete="true"
+      placeholder="Введите адрес"/>
   </div>
 </template>
 

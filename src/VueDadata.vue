@@ -18,7 +18,8 @@
     </div>
     <div
       v-if="inputFocused && suggestionsVisible && !disabled"
-      :class="proxyClasses.suggestions">
+      :class="proxyClasses.suggestions"
+      role="listbox">
       <slot
         name="suggestions"
         :suggestion-list="suggestionList"
@@ -33,6 +34,7 @@
           :class="suggestionIndexList === suggestionIndex ? proxyClasses.suggestionCurrentItem : ''"
           :query="queryProxy"
           :text-to-highlight="suggestionItemList.value"
+          role="option"
           @mousedown="onSuggestionClick(suggestionIndexList)" />
       </slot>
     </div>
