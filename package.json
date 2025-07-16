@@ -40,6 +40,7 @@
     "dev": "vite --host",
     "dev:docs": "vitepress dev docs --port=8081",
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore --fix src",
+    "lint:check": "eslint --ext .ts,.js,.vue --ignore-path .gitignore src",
     "playwright:ci": "playwright test --project=chromium",
     "playwright:dev": "playwright test --headed --project=chromium",
     "serve:docs": "vitepress serve docs",
