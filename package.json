@@ -2,7 +2,6 @@
   "name": "vue-dadata",
   "version": "3.0.2",
   "description": "Vue component for hinting addresses using dadata.ru",
-  "type": "module",
   "keywords": [
     "vue",
     "vue3",
@@ -15,6 +14,7 @@
   "repository": "https://github.com/ikloster03/vue-dadata",
   "license": "MIT",
   "author": "Ivan Monastyrev <ikloster@yandex.ru>",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/vue-dadata.js",
@@ -23,8 +23,8 @@
     "./*": "./*"
   },
   "main": "./dist/vue-dadata.umd.js",
-  "unpkg": "./dist/vue-dadata.umd.js",
   "jsdelivr": "./dist/vue-dadata.umd.js",
+  "unpkg": "./dist/vue-dadata.umd.js",
   "module": "./dist/vue-dadata.js",
   "typings": "./dist/index.d.ts",
   "files": [
@@ -40,13 +40,20 @@
     "dev": "vite --host",
     "dev:docs": "vitepress dev docs --port=8081",
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore --fix src",
-    "playwright:dev": "playwright test --headed --project=chromium",
     "playwright:ci": "playwright test --project=chromium",
+    "playwright:dev": "playwright test --headed --project=chromium",
     "serve:docs": "vitepress serve docs",
     "sort": "npx sort-package-json",
     "test:dev": "vitest",
     "test:prod": "vitest run",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "version:major": "pnpm version major && git push && git push --tags",
+    "version:minor": "pnpm version minor && git push && git push --tags",
+    "version:patch": "pnpm version patch && git push && git push --tags",
+    "version:premajor": "pnpm version premajor && git push && git push --tags",
+    "version:preminor": "pnpm version preminor && git push && git push --tags",
+    "version:prepatch": "pnpm version prepatch && git push && git push --tags",
+    "version:prerelease": "pnpm version prerelease && git push && git push --tags"
   },
   "dependencies": {
     "axios": "1.10.0",
