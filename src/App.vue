@@ -29,7 +29,7 @@ export default defineComponent({
     };
 
     return {
-      token: import.meta.env.VITE_APP_DADATA_API_KEY as string,
+      token: import.meta.env.VITE_APP_DADATA_API_KEY,
       query,
       suggestion,
       highlightOptions,
