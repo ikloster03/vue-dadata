@@ -35,7 +35,7 @@ jobs:
         run: pnpm install
 
       - name: Run tests
-        run: pnpm run test
+        run: pnpm run test:prod
 
       - name: Run type check
         run: pnpm run typecheck
