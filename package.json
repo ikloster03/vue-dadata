@@ -40,6 +40,8 @@
     "dev": "vite --host",
     "dev:docs": "vitepress dev docs --port=8081",
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore --fix src",
+    "playwright:dev": "playwright test --headed --project=chromium",
+    "playwright:ci": "playwright test --project=chromium",
     "serve:docs": "vitepress serve docs",
     "sort": "npx sort-package-json",
     "test:dev": "vitest",
@@ -52,6 +54,7 @@
     "vue-word-highlighter": "1.2.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.54.1",
     "@rushstack/eslint-patch": "1.12.0",
     "@typescript-eslint/eslint-plugin": "8.36.0",
     "@typescript-eslint/parser": "8.36.0",
@@ -67,6 +70,7 @@
     "eslint-plugin-simple-import-sort": "12.1.1",
     "eslint-plugin-vue": "10.3.0",
     "happy-dom": "18.0.1",
+    "playwright": "^1.54.1",
     "rollup-plugin-visualizer": "^6.0.3",
     "typescript": "5.8.3",
     "vite": "7.0.4",
