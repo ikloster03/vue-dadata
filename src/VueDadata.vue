@@ -14,18 +14,17 @@
         @keyup.up="onKeyPress($event, KeyEvent.Up)"
         @keyup.down="onKeyPress($event, KeyEvent.Down)"
         @focus="onInputFocus"
-        @blur="onInputBlur">
+        @blur="onInputBlur"
+      />
     </div>
-    <div
-      v-if="inputFocused && suggestionsVisible && !disabled"
-      :class="proxyClasses.suggestions"
-      role="listbox">
+    <div v-if="inputFocused && suggestionsVisible && !disabled" :class="proxyClasses.suggestions" role="listbox">
       <slot
         name="suggestions"
         :suggestion-list="suggestionList"
         :suggestion-index="suggestionIndex"
         :query="queryProxy"
-        :suggestion="suggestionProxy">
+        :suggestion="suggestionProxy"
+      >
         <word-highlighter
           v-for="(suggestionItemList, suggestionIndexList) in suggestionList"
           :key="`suggestion_${suggestionIndexList}`"
@@ -35,7 +34,8 @@
           :query="queryProxy"
           :text-to-highlight="suggestionItemList.value"
           role="option"
-          @mousedown="onSuggestionClick(suggestionIndexList)" />
+          @mousedown="onSuggestionClick(suggestionIndexList)"
+        />
       </slot>
     </div>
   </div>
@@ -44,13 +44,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ComputedRef } from 'vue';
 import WordHighlighter from 'vue-word-highlighter';
-import {
-  BoundsType,
-  LocationOptions,
-  VueDadataClasses,
-  KeyEvent,
-  HighlightOptions, Suggestion,
-} from './types';
+import { BoundsType, LocationOptions, VueDadataClasses, KeyEvent, HighlightOptions, Suggestion } from './types';
 import { DEFAULT_CLASSES, DEFAULT_HIGHLIGHT_OPTIONS } from './const';
 import useClasses from './classes';
 import useHighlightOptions from './highlight-options';
@@ -83,7 +77,7 @@ export default defineComponent({
       default: undefined,
     },
     debounceWait: {
-      type: String || Number as PropType<number | string>,
+      type: String || (Number as PropType<number | string>),
       default: '1000ms',
     },
     disabled: {

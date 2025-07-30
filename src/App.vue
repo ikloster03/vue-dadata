@@ -6,7 +6,8 @@
       :highlight-options="highlightOptions"
       :token="token"
       :autocomplete="true"
-      placeholder="Введите адрес"/>
+      placeholder="Введите адрес"
+    />
   </div>
 </template>
 
@@ -39,6 +40,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

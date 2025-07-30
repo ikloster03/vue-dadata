@@ -1,4 +1,4 @@
-export interface HighlightOptions{
+export interface HighlightOptions {
   caseSensitive?: boolean;
   splitBySpace?: boolean;
   highlightTag?: string;

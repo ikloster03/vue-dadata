@@ -1,4 +1,4 @@
-import { VueDadataClasses } from '../types';
+import { VueDadataClasses } from '../types/classes.types';
 
 export const DEFAULT_CLASSES: VueDadataClasses = {
   container: 'vue-dadata',

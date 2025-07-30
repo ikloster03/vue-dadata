@@ -14,8 +14,8 @@ export interface SuggestionDto {
 export interface SuggestionPayload {
   query: string;
   count?: number;
-  to_bound?: { value: BoundsType};
-  from_bound?: { value: BoundsType};
+  to_bound?: { value: BoundsType };
+  from_bound?: { value: BoundsType };
   language?: string;
   locations?: object[];
   locations_boost?: object;

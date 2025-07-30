@@ -1,27 +1,23 @@
-import {
-  computed, ref, watch, Ref,
-} from 'vue';
+import { computed, ref, watch, Ref } from 'vue';
 import { debounce } from 'vue-debounce';
-import {
-  BoundsType, KeyEvent, LocationOptions, Suggestion, SuggestionDto,
-} from './types';
+import { BoundsType, KeyEvent, LocationOptions, Suggestion, SuggestionDto } from './types';
 import { getSuggestions } from './api';
 
 const useSuggestions = (
   props: {
-    modelValue: string,
-    suggestion: Suggestion | undefined,
-    token: string,
-    url?: string,
-    disabled?: boolean,
-    debounceWait?: number | string,
-    toBound?: BoundsType,
-    fromBound?: BoundsType,
-    locationOptions?: LocationOptions,
-    autocomplete: boolean,
+    modelValue: string;
+    suggestion: Suggestion | undefined;
+    token: string;
+    url?: string;
+    disabled?: boolean;
+    debounceWait?: number | string;
+    toBound?: BoundsType;
+    fromBound?: BoundsType;
+    locationOptions?: LocationOptions;
+    autocomplete: boolean;
   },
-  // eslint-disable-next-line no-unused-vars
-  emit: (event: 'update:modelValue' | 'update:suggestion' | 'handleError', ...args: any[]) => void,
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-explicit-any
+  emit: (event: 'update:modelValue' | 'update:suggestion' | 'handleError', ...args: any[]) => void
 ) => {
   const queryProxy = computed({
     get: () => props.modelValue,
@@ -61,9 +57,12 @@ const useSuggestions = (
     }
   };
 
-  const fetchWithDebounce = debounce(async () => {
-    suggestionList.value = await fetchSuggestions();
-  }, props.debounceWait as string | number);
+  const fetchWithDebounce = debounce(
+    async () => {
+      suggestionList.value = await fetchSuggestions();
+    },
+    props.debounceWait as string | number
+  );
 
   watch(queryProxy, async () => {
     fetchWithDebounce();
