@@ -1,0 +1,24 @@
+# Directories
+node_modules/
+dist/
+coverage/
+.vitepress/
+test-results/
+playwright/
+.cursor/
+
+# Files
+*.min.js
+*.min.css
+pnpm-lock.yaml
+CHANGELOG.md
+LICENSE
+
+# Build outputs
+*.d.ts
+*.js.map
+*.css.map
+
+# Cache files
+.eslintcache
+.vite/
