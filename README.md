@@ -9,11 +9,11 @@
 
 It's a vue component for hinting addresses using [DaData.ru](https://dadata.ru).
 
-| Version   | Description          |
-|-----------|----------------------|
-| 1.\*.\*   | Old version for vue2 |
-| 2.\*.\*   | New version for vue2 |
-| 3.\*.\*   | New version for vue3 |
+| Version | Description          |
+| ------- | -------------------- |
+| 1.\*.\* | Old version for vue2 |
+| 2.\*.\* | New version for vue2 |
+| 3.\*.\* | New version for vue3 |
 
 ## Install
 
@@ -33,9 +33,7 @@ $ npm install vue-dadata --save
 ```html
 <template>
   <div class="vue-truncate-html-example">
-    <vue-dadata
-      v-model="query"
-      :token="token" />
+    <vue-dadata v-model="query" :token="token" />
   </div>
 </template>
 
@@ -55,7 +53,6 @@ $ npm install vue-dadata --save
       return {
         token: import.meta.env.VITE_APP_DADATA_API_KEY,
         query,
-
       };
     },
   });
@@ -64,28 +61,29 @@ $ npm install vue-dadata --save
 
 ### Properties
 
-| Prop             | Required | Type       | Description                                                                                                    | Default                                                                                                                  |
-|------------------|----------|------------|----------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| token            | Yes      | `string`   | Auth token DaData.ru                                                                                           | -                                                                                                                        |
-| modelValue       | Yes      | `string`   | v-model for query                                                                                              | -                                                                                                                        |
-| suggestion       | No       | `object`   | v-model for [suggestion](https://github.com/ikloster03/vue-dadata/blob/master/src/types/suggestion.dto.ts#L24) | `undefined`                                                                                                              |
-| placeholder      | No       | `string`   | Text placeholder                                                                                               | `''`                                                                                                                     |
-| url              | No       | `string`   | special url for dadata api                                                                                     | `'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address'`                                                 |
-| debounceWait     | No       | `string`   | waiting time                                                                                                   | `'1000ms'`                                                                                                               |
-| disabled         | No       | `boolean`  | disabled                                                                                                       | `false`                                                                                                                  |
-| fromBound        | No       | `string`   | Dadata bound type FROM                                                                                         | `undefined`                                                                                                              |
-| toBound          | No       | `string`   | Dadata bound type TO                                                                                           | `undefined`                                                                                                              |
-| inputName        | No       | `string`   | Input name attribute                                                                                           | `'vue-dadata-input'`                                                                                                     |
-| locationOptions  | No       | `object`   | Location options for choosing cities or countries                                                              | `undefined`                                                                                                              |
-| classes          | No       | `object`   | classes                                                                                                        | [DEFAULT_CLASSES](https://github.com/ikloster03/vue-dadata/blob/master/src/const/classes.const.ts)                       |
-| highlightOptions | No       | `object`   | highlight options for [vue-word-highlighter](https://github.com/kawamataryo/vue-word-highlighter)              | [DEFAULT_HIGHLIGHT_OPTIONS](https://github.com/ikloster03/vue-dadata/blob/master/src/const/highlight-options.const.ts)   |
-| autocomplete     | No       | `boolean`  | can autocomplete query, after blur                                                                             | `undefined`                                                                                                              |
-
+| Prop             | Required | Type      | Description                                                                                                    | Default                                                                                                                |
+| ---------------- | -------- | --------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| token            | Yes      | `string`  | Auth token DaData.ru                                                                                           | -                                                                                                                      |
+| modelValue       | Yes      | `string`  | v-model for query                                                                                              | -                                                                                                                      |
+| suggestion       | No       | `object`  | v-model for [suggestion](https://github.com/ikloster03/vue-dadata/blob/master/src/types/suggestion.dto.ts#L24) | `undefined`                                                                                                            |
+| placeholder      | No       | `string`  | Text placeholder                                                                                               | `''`                                                                                                                   |
+| url              | No       | `string`  | special url for dadata api                                                                                     | `'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address'`                                               |
+| debounceWait     | No       | `string`  | waiting time                                                                                                   | `'1000ms'`                                                                                                             |
+| disabled         | No       | `boolean` | disabled                                                                                                       | `false`                                                                                                                |
+| fromBound        | No       | `string`  | Dadata bound type FROM                                                                                         | `undefined`                                                                                                            |
+| toBound          | No       | `string`  | Dadata bound type TO                                                                                           | `undefined`                                                                                                            |
+| inputName        | No       | `string`  | Input name attribute                                                                                           | `'vue-dadata-input'`                                                                                                   |
+| locationOptions  | No       | `object`  | Location options for choosing cities or countries                                                              | `undefined`                                                                                                            |
+| classes          | No       | `object`  | classes                                                                                                        | [DEFAULT_CLASSES](https://github.com/ikloster03/vue-dadata/blob/master/src/const/classes.const.ts)                     |
+| highlightOptions | No       | `object`  | highlight options for [vue-word-highlighter](https://github.com/kawamataryo/vue-word-highlighter)              | [DEFAULT_HIGHLIGHT_OPTIONS](https://github.com/ikloster03/vue-dadata/blob/master/src/const/highlight-options.const.ts) |
+| autocomplete     | No       | `boolean` | can autocomplete query, after blur                                                                             | `undefined`                                                                                                            |
 
 ## Peer dependencies
+
 - [vue](https://github.com/vuejs/vue)
 
 ## Dependencies
+
 - [axios](https://github.com/axios/axios)
 - [vue-debounce](https://github.com/dhershman1/vue-debounce)
 - [vue-word-highlighter](https://github.com/kawamataryo/vue-word-highlighter)

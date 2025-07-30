@@ -13,27 +13,14 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "declaration": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
+    "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "paths": {
-      "@/*": [
-        "./src/*",
-        "./dist/*"
-      ]
+      "@/*": ["./src/*", "./dist/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
-  ],
-  "exclude": [
-    "src/**/*.test.ts",
-  ],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["src/**/*.test.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"

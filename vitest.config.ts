@@ -12,9 +12,7 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
     },
-    include: ['./src/**/*.test.ts']
+    include: ['./src/**/*.test.ts'],
   },
-  plugins: [
-    vue(),
-  ],
+  plugins: [vue()],
 });
