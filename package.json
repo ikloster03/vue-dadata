@@ -78,7 +78,7 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-vue": "^9.33.0",
-    "happy-dom": "18.0.1",
+    "happy-dom": "20.8.8",
     "playwright": "^1.54.1",
     "prettier": "^3.6.2",
     "rollup-plugin-visualizer": "^6.0.3",
